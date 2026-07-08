@@ -11,7 +11,8 @@
 #'   ),
 #'   max = 9
 #' )
-#' @importFrom dplyr anti_join bind_rows
+#' @importFrom dplyr bind_rows distinct cur_group_id
+#' @importFrom rlang .data
 #' @export
 sequence_find_all <- function(vec, min = 4) {
 
@@ -25,15 +26,11 @@ sequence_find_all <- function(vec, min = 4) {
     }
     results[[n - min + 1]] <- found
   }
-  results <- rev(results)
-  results2 <- list()
-  results2[[1]] <- results[[1]]
-  if (length(results) > 1) {
-    for (i in 2:length(results)) {
-      results2[[i]] <- anti_join(results[[i]], results[[i - 1]],
-        by = c("pos1", "pos2")
-      )
-    }
-  }
-  bind_rows(results2)
+  results <- rev(results) |> 
+    bind_rows() |>
+    # remove duplicates (eg short sequence that is subset of long sequence)
+    distinct(.data$pos1, .data$pos2, .keep_all = TRUE) |> 
+    mutate(duplicate_no = cur_group_id(), .by = c("duplicate_no", "length"))
+  results
 }
+
