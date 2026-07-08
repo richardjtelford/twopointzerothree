@@ -4,7 +4,7 @@
 \alias{sequence_permute}
 \title{Null expectation for apparent sequences}
 \usage{
-sequence_permute(vec, min = 5, max = 10, nsamp = 100)
+sequence_permute(vec, min = 5, max = 10, nsamp = 100, type = "identical")
 }
 \arguments{
 \item{vec}{vector with possible duplicates}
@@ -14,6 +14,8 @@ sequence_permute(vec, min = 5, max = 10, nsamp = 100)
 \item{max}{maximum length of sequence sought}
 
 \item{nsamp}{number of replications}
+
+\item{type}{Type of duplicate sought: "identical", "offset", or "multiple"}
 }
 \description{
 Vectors with low cardinality have a high risk of false positive duplicate sequences, especially for short sequences. sequence_permute permutes sequences and then tests for duplicates.
@@ -29,13 +31,8 @@ TotalPrey <- c(
   2, 3, 2, 2, 2, 1, 1, 2, 1, 3, 4, 1, 2, 3, 3, 4, 1, 2, 3, 3, 2,
   2, 3, 1, 5, 3, 4, 2, 2, 1, 1, 2, 1, 0, 1, 2
 )
-if(FALSE){
-suppressWarnings(
-  res <- sequence_permute(TotalPrey, min = 5, max = 10, nsamp = 100)
-) # warnings when standard deviation = 0
+
+res <- sequence_permute(TotalPrey, min = 5, max = 10, nsamp = 100)
 res
-library(ggplot2)
-ggplot(res, aes(n, p)) +
-  geom_col()
-  }
+res |> dplyr::summarise(prob_has_duplicate = mean(sequences > 0), .by = "n")
 }

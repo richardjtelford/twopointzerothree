@@ -5,6 +5,7 @@
 #' @param min minimum length of sequence sought
 #' @param max maximum length of sequence sought
 #' @param nsamp number of replications
+#' @param type Type of duplicate sought: "identical", "offset", or "multiple"
 #'
 #' @examples
 #' # data from https://doi.org/10.5061/dryad.bd26mq0
@@ -17,33 +18,26 @@
 #'   2, 3, 2, 2, 2, 1, 1, 2, 1, 3, 4, 1, 2, 3, 3, 4, 1, 2, 3, 3, 2,
 #'   2, 3, 1, 5, 3, 4, 2, 2, 1, 1, 2, 1, 0, 1, 2
 #' )
-#' if(FALSE){
-#' suppressWarnings(
-#'   res <- sequence_permute(TotalPrey, min = 5, max = 10, nsamp = 100)
-#' ) # warnings when standard deviation = 0
+#' 
+#' res <- sequence_permute(TotalPrey, min = 5, max = 10, nsamp = 100)
 #' res
-#' library(ggplot2)
-#' ggplot(res, aes(n, p)) +
-#'   geom_col()
-#'   }
-#' @importFrom dplyr ungroup mutate arrange group_by summarise %>%
-#' @importFrom purrr set_names map_int
-#' @importFrom tibble enframe
+#' res |> dplyr::summarise(prob_has_duplicate = mean(sequences > 0), .by = "n")
+#' @importFrom dplyr mutate if_else
+#' @importFrom purrr set_names map list_rbind
+#' @importFrom tibble tibble
 #' @importFrom rlang .data
 #' @export
 
-sequence_permute <- function(vec, min = 5, max = 10, nsamp = 100) {
-  min:max %>%
-    set_names() %>%
-    map_df(
-      ~ rerun(nsamp, sequence_find(vec = sample(vec), n = .x)) %>%
-        map_int(nrow) %>%
-        enframe(),
-      .id = "n"
-    ) %>%
-    group_by(.data$n) %>%
-    summarise(p = mean(.data$value > 0)) %>%
-    ungroup() %>%
-    mutate(n = as.integer(.data$n)) %>%
-    arrange(.data$n)
+sequence_permute <- function(vec, min = 5, max = 10, nsamp = 100, type = "identical") {
+  min:max |>
+    set_names() |>
+    rep(each = nsamp) |>
+    map(\(n) {
+      sequence_find(vec = sample(vec), n = n, type = type)
+    }) |>
+    map(\(s){
+      tibble(sequences = if_else(nrow(s) > 0, max(s$duplicate_no), false = 0))
+    }) |>
+    list_rbind(names_to = "n") |>
+    mutate(n = as.integer(.data$n))
 }
