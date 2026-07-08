@@ -1,6 +1,5 @@
 #' Find and extract all duplicate sequences
 #' @param vec vector with possible duplicates
-#' @param max length of longest sequence sought. If missing will find the length of the longest duplicate
 #' @param min length of the shortest sequence of interest (high risk of false positives if this is short)
 #' @examples
 #' data(kp2014)
@@ -14,17 +13,19 @@
 #' )
 #' @importFrom dplyr anti_join bind_rows
 #' @export
-sequence_find_all <- function(vec, min = 4, max) {
-  if (missing(max)) {
-    max <- sequence_longest(vec = vec, min = min, max = max)
-  }
-  if (is.na(max)) { # no dups found
-    max <- min
-  }
+sequence_find_all <- function(vec, min = 4) {
+
+  max <- floor(length(vec) / 2)
+  
   results <- list()
-  for (n in max:min) {
-    results[[max - n + 1]] <- sequence_find(vec = vec, n = n)
+  for (n in min:max) {
+    found <- sequence_find(vec = vec, n = n)
+    if (nrow(found) == 0) {
+      break
+    }
+    results[[n - min + 1]] <- found
   }
+  results <- rev(results)
   results2 <- list()
   results2[[1]] <- results[[1]]
   if (length(results) > 1) {
