@@ -14,18 +14,15 @@
 #' @importFrom purrr list_rbind
 
 
-
-
 sequence_extract <- function(th, vec) {
-
   # get indices where th is true (ie within tolerance of zero)
   dups <- finv(which(th), th)
 
   # recode from index to row
   labels <- attr(th, "Labels")
-  dups[, "i"] <- as.numeric(labels[dups[, "i"]])  
+  dups[, "i"] <- as.numeric(labels[dups[, "i"]])
   dups[, "j"] <- as.numeric(labels[dups[, "j"]])
-  
+
   n <- attr(th, "len")
   if (nrow(dups) == 0) {
     tibble(
@@ -47,11 +44,10 @@ sequence_extract <- function(th, vec) {
         vec2 = vec[.data$pos2],
         delta = .data$vec2 - .data$vec1
       )
-      }, simplify = FALSE) |>
-    list_rbind(names_to = "duplicate_no")
+    }, simplify = FALSE) |>
+      list_rbind(names_to = "duplicate_no")
   }
 }
-
 
 
 #' 1D index to 2D index
@@ -60,13 +56,13 @@ sequence_extract <- function(th, vec) {
 #' @references https://stackoverflow.com/a/39006382/2055765
 
 
-finv <- function (k, dist_obj) {
+finv <- function(k, dist_obj) {
   if (!inherits(dist_obj, "dist")) stop("please provide a 'dist' object")
   n <- attr(dist_obj, "Size")
   valid <- (k >= 1) & (k <= n * (n - 1) / 2)
   k_valid <- k[valid]
   j <- rep.int(NA_real_, length(k))
-  j[valid] <- floor(((2 * n + 1) - sqrt((2 * n - 1) ^ 2 - 8 * (k_valid - 1))) / 2)
+  j[valid] <- floor(((2 * n + 1) - sqrt((2 * n - 1)^2 - 8 * (k_valid - 1))) / 2)
   i <- j + k - (2 * n - j) * (j - 1) / 2
   cbind(i, j)
 }

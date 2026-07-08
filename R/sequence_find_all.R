@@ -1,8 +1,13 @@
 #' Find and extract all duplicate sequences
 #' @param vec vector with possible duplicates
-#' @param min length of the shortest sequence of interest (high risk of false positives if this is short)
-#' @param type Type of duplicate sought. Options are "identical" for exact duplicates (new == old), "offset" for duplicates with an fixed offset (new == old + constant ), and "multiple" for duplicates with a multiplicative offset (new == old * constant1 + constant2)
-#' @param tolerance Small positive number to allow for numerical imprecision. 
+#' @param min length of the shortest sequence of interest
+#' (high risk of false positives if this is short)
+#' @param type Type of duplicate sought.
+#' Options are "identical" for exact duplicates (new == old),
+#' "offset" for duplicates with an fixed offset (new == old + constant ),
+#' and "multiple" for duplicates with a multiplicative offset
+#' (new == old * constant1 + constant2)
+#' @param tolerance Small positive number to allow for numerical imprecision.
 #' Defaults to `sqrt(.Machine$double.eps)`.
 #' @examples
 #' data(kp2014)

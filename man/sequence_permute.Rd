@@ -18,7 +18,9 @@ sequence_permute(vec, min = 5, max = 10, nsamp = 100, type = "identical")
 \item{type}{Type of duplicate sought: "identical", "offset", or "multiple"}
 }
 \description{
-Vectors with low cardinality have a high risk of false positive duplicate sequences, especially for short sequences. sequence_permute permutes sequences and then tests for duplicates.
+Vectors with low cardinality have a high risk of false positive
+duplicate sequences, especially for short sequences.
+\code{sequence_permute} permutes sequences and then tests for duplicates.
 }
 \examples{
 # data from https://doi.org/10.5061/dryad.bd26mq0

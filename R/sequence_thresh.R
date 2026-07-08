@@ -9,16 +9,14 @@
 #' x <- c(x, x[1:4] + 2.03)
 #' sequ <- twopointzerothree:::sequence_dist(vec = x, n = 4)
 #' twopointzerothree:::sequence_thresh(sequ)
-
-
 sequence_thresh <- function(dist, tolerance) {
-  if(missing(tolerance)) tolerance <- sqrt(.Machine$double.eps)
+  if (missing(tolerance)) tolerance <- sqrt(.Machine$double.eps)
   if (tolerance < 0) {
     stop("tolerance must be positive")
   }
   th <- dist < tolerance
   # keep dist object structure
   attributes(th) <- attributes(dist)
-  
+
   th
 }

@@ -18,10 +18,15 @@ Spider aggression data for Keiser and Pruitt 2014 - Behavioral Ecology.
 }
 \examples{
 data(kp2014)
-sequence_find_all(vec = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
+sequence_find_all(
+  vec = kp2014$`Theridion murarium Aggressiveness...4`,
+  type = "offset"
+)
 }
 \references{
-Keiser, C. N., Pruitt, J.N. Spider aggressiveness determines the bidirectional consequences of host–inquiline interactions, \emph{Behavioral Ecology}, 25: 142–151 2014,
+Keiser, C. N., Pruitt, J.N. Spider aggressiveness determines the
+bidirectional consequences of host–inquiline interactions,
+\emph{Behavioral Ecology}, 25: 142–151 2014,
 (\href{http://dx.doi.org/10.1093/beheco/art096}{https://doi.org/10.1093/beheco/art096})
 }
 \keyword{datasets}

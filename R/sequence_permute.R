@@ -1,5 +1,7 @@
 #' Null expectation for apparent sequences
-#' @description Vectors with low cardinality have a high risk of false positive duplicate sequences, especially for short sequences. sequence_permute permutes sequences and then tests for duplicates.
+#' @description Vectors with low cardinality have a high risk of false positive
+#' duplicate sequences, especially for short sequences.
+#' `sequence_permute` permutes sequences and then tests for duplicates.
 #'
 #' @param vec vector with possible duplicates
 #' @param min minimum length of sequence sought
@@ -18,7 +20,7 @@
 #'   2, 3, 2, 2, 2, 1, 1, 2, 1, 3, 4, 1, 2, 3, 3, 4, 1, 2, 3, 3, 2,
 #'   2, 3, 1, 5, 3, 4, 2, 2, 1, 1, 2, 1, 0, 1, 2
 #' )
-#' 
+#'
 #' res <- sequence_permute(TotalPrey, min = 5, max = 10, nsamp = 100)
 #' res
 #' res |> dplyr::summarise(prob_has_duplicate = mean(sequences > 0), .by = "n")
@@ -28,14 +30,15 @@
 #' @importFrom rlang .data
 #' @export
 
-sequence_permute <- function(vec, min = 5, max = 10, nsamp = 100, type = "identical") {
+sequence_permute <- function(vec, min = 5, max = 10, nsamp = 100,
+                             type = "identical") {
   min:max |>
     set_names() |>
     rep(each = nsamp) |>
     map(\(n) {
       sequence_find(vec = sample(vec), n = n, type = type)
     }) |>
-    map(\(s){
+    map(\(s) {
       tibble(sequences = if_else(nrow(s) > 0, max(s$duplicate_no), false = 0))
     }) |>
     list_rbind(names_to = "n") |>

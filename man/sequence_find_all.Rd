@@ -9,9 +9,14 @@ sequence_find_all(vec, type = "identical", min = 4, tolerance)
 \arguments{
 \item{vec}{vector with possible duplicates}
 
-\item{type}{Type of duplicate sought. Options are "identical" for exact duplicates (new == old), "offset" for duplicates with an fixed offset (new == old + constant ), and "multiple" for duplicates with a multiplicative offset (new == old * constant1 + constant2)}
+\item{type}{Type of duplicate sought.
+Options are "identical" for exact duplicates (new == old),
+"offset" for duplicates with an fixed offset (new == old + constant ),
+and "multiple" for duplicates with a multiplicative offset
+(new == old * constant1 + constant2)}
 
-\item{min}{length of the shortest sequence of interest (high risk of false positives if this is short)}
+\item{min}{length of the shortest sequence of interest
+(high risk of false positives if this is short)}
 
 \item{tolerance}{Small positive number to allow for numerical imprecision.
 Defaults to \code{sqrt(.Machine$double.eps)}.}

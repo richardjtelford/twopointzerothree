@@ -3,13 +3,13 @@
 #' @param vec numeric vector to test for possible offset duplicate sequences
 #' @param n length of duplicate sequence to search for
 #' @param type Type of duplicate sought. See [sequence_find()] for details.
-#' @details Embeds the vector into low-dimensional Euclidean space and then 
-#' finds manhattan distance between all pairs of rows 
+#' @details Embeds the vector into low-dimensional Euclidean space and then
+#' finds manhattan distance between all pairs of rows
 #' Pairs of rows with a distance of 0 are identical if `type` is "identical".
-#' If `type` is "offset, rows are de-meaned before the distance is calculated. 
-#' If `type` is multiple, rows are standardised to zero mean and unit 
+#' If `type` is "offset, rows are de-meaned before the distance is calculated.
+#' If `type` is multiple, rows are standardised to zero mean and unit
 #' standard deviation before the distance is calculated.
-#' 
+#'
 #' @examples
 #' set.seed(42)
 #' x <- rnorm(10)
@@ -27,23 +27,25 @@ sequence_dist <- function(vec, n, type = c("identical", "offset", "multiple")) {
     stop("vec must be longer than n")
   }
   # embed
-  em <- embed(vec, n) 
+  em <- embed(vec, n)
   # reverse col order
-  em <- em[, ncol(em):1]
-  
+  em <- em[, rev(seq_len(ncol(em)))]
+
   # treat for type
-  em  <- switch(type, 
+  em <- switch(type,
     identical = em,
     offset = t(scale(t(em), center = TRUE, scale = FALSE)),
     multiple = t(scale(t(em)))
   )
-  
+
   # set rownames
   rownames(em) <- seq_len(nrow(em))
-  # remove rows with NA (dist otherwise ignores NA, giving some spurious matches)
+  # remove rows with NA (dist otherwise ignores NA giving some spurious matches)
   em <- na.omit(em)
-  if(nrow(em) == 0) {warning ("After embedding, all rows include NA")}
-  
+  if (nrow(em) == 0) {
+    warning("After embedding, all rows include NA")
+  }
+
   # calculate distance
   d <- dist(em, method = "manhattan")
   attr(d, "len") <- n

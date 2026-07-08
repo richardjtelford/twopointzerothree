@@ -19,7 +19,11 @@ sequence_show(data, meta_cols, test_cols, ...)
 Show duplicate sequences in a datatable
 }
 \details{
-Highlights different sets of duplicates in a datatable. Adds extra columns before each tested column to show each duplicate set. Columns headers have the format number.number.number, where the first number refers to the number of the tested column, the second refers to the sequence length and the third is a unique identifier for each sequence length.
+Highlights different sets of duplicates in a datatable.
+Adds extra columns before each tested column to show each duplicate set.
+Columns headers have the format number.number.number, where the first number
+refers to the number of the tested column, the second refers to the sequence
+length and the third is a unique identifier for each sequence length.
 }
 \examples{
 data(kp2014)

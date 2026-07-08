@@ -24,7 +24,8 @@ Options for \code{type} are "identical" for exact duplicates (new == old),
 and "multiple" for duplicates with a multiplicative offset,
 and perhaps a constant offset (new == old * constant1 + constant2).
 
-Note that multiplicative offsets will also find constant offsets (i.e. constant1 = 1), and identical duplicates (i.e. constant2 = 0)
+Note that multiplicative offsets will also find constant offsets
+(i.e. constant1 = 1), and identical duplicates (i.e. constant2 = 0)
 }
 \examples{
 set.seed(42)
