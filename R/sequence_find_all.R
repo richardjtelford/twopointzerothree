@@ -15,22 +15,23 @@
 #' @importFrom rlang .data
 #' @export
 sequence_find_all <- function(vec, min = 4) {
-
+  # max possible duplicate
   max <- floor(length(vec) / 2)
-  
+
+  # iterate to find different length duplicates.
   results <- list()
   for (n in min:max) {
     found <- sequence_find(vec = vec, n = n)
     if (nrow(found) == 0) {
-      break
+      break # stop searching when no more duplicates are found
     }
-    results[[n - min + 1]] <- found
+    results[[n - min + 1]] <- found # allocate to list
   }
-  results <- rev(results) |> 
+  # collate results from different lengths
+  results <- rev(results) |>
     bind_rows() |>
     # remove duplicates (eg short sequence that is subset of long sequence)
-    distinct(.data$pos1, .data$pos2, .keep_all = TRUE) |> 
+    distinct(.data$pos1, .data$pos2, .keep_all = TRUE) |>
     mutate(duplicate_no = cur_group_id(), .by = c("duplicate_no", "length"))
   results
 }
-
