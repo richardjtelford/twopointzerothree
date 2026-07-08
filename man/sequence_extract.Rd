@@ -18,7 +18,7 @@ extract duplicate sequences
 #' set.seed(42)
 x <- rnorm(10)
 x <- c(x, x[1:4] + 2.03)
-co <- sequence_cor(vec = x, n = 3)
-th <- sequence_thresh(co)
-sequence_extract(th, vec = x)
+d <- twopointzerothree:::sequence_dist(vec = x, n = 3)
+th <- twopointzerothree:::sequence_thresh(d)
+twopointzerothree:::sequence_extract(th, vec = x)
 }

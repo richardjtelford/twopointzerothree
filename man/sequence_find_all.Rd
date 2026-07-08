@@ -4,12 +4,17 @@
 \alias{sequence_find_all}
 \title{Find and extract all duplicate sequences}
 \usage{
-sequence_find_all(vec, min = 4)
+sequence_find_all(vec, type = "identical", min = 4, tolerance)
 }
 \arguments{
 \item{vec}{vector with possible duplicates}
 
+\item{type}{Type of duplicate sought. Options are "identical" for exact duplicates (new == old), "offset" for duplicates with an fixed offset (new == old + constant ), and "multiple" for duplicates with a multiplicative offset (new == old * constant1 + constant2)}
+
 \item{min}{length of the shortest sequence of interest (high risk of false positives if this is short)}
+
+\item{tolerance}{Small positive number to allow for numerical imprecision.
+Defaults to \code{sqrt(.Machine$double.eps)}.}
 }
 \description{
 Find and extract all duplicate sequences
@@ -22,6 +27,6 @@ sequence_find_all(
     kp2014$`Theridion murarium Aggressiveness...5`,
     kp2014$`Theridion murarium Aggressiveness...6`
   ),
-  max = 9
+  type = "offset"
 )
 }

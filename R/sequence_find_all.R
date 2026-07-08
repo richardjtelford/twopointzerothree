@@ -1,6 +1,9 @@
 #' Find and extract all duplicate sequences
 #' @param vec vector with possible duplicates
 #' @param min length of the shortest sequence of interest (high risk of false positives if this is short)
+#' @param type Type of duplicate sought. Options are "identical" for exact duplicates (new == old), "offset" for duplicates with an fixed offset (new == old + constant ), and "multiple" for duplicates with a multiplicative offset (new == old * constant1 + constant2)
+#' @param tolerance Small positive number to allow for numerical imprecision. 
+#' Defaults to `sqrt(.Machine$double.eps)`.
 #' @examples
 #' data(kp2014)
 #' sequence_find_all(
@@ -9,23 +12,24 @@
 #'     kp2014$`Theridion murarium Aggressiveness...5`,
 #'     kp2014$`Theridion murarium Aggressiveness...6`
 #'   ),
-#'   max = 9
+#'   type = "offset"
 #' )
 #' @importFrom dplyr bind_rows distinct cur_group_id
 #' @importFrom rlang .data
 #' @export
-sequence_find_all <- function(vec, min = 4) {
+sequence_find_all <- function(vec, type = "identical", min = 4, tolerance) {
   # max possible duplicate
   max <- floor(length(vec) / 2)
 
   # iterate to find different length duplicates.
   results <- list()
   for (n in min:max) {
-    found <- sequence_find(vec = vec, n = n)
+    found <- sequence_find(vec = vec, n = n, type = type, tolerance = tolerance)
+
+    results[[n - min + 1]] <- found # allocate to list
     if (nrow(found) == 0) {
       break # stop searching when no more duplicates are found
     }
-    results[[n - min + 1]] <- found # allocate to list
   }
   # collate results from different lengths
   results <- rev(results) |>

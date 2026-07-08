@@ -2,27 +2,25 @@
 % Please edit documentation in R/sequence_thresh.R
 \name{sequence_thresh}
 \alias{sequence_thresh}
-\title{Threshold segment correlations}
+\title{Threshold inter-segment distances}
 \usage{
-sequence_thresh(sequ, threshold = 1, tolerance = sqrt(.Machine$double.eps))
+sequence_thresh(dist, tolerance)
 }
 \arguments{
-\item{sequ}{Output of \code{\link[=sequence_cor]{sequence_cor()}}}
-
-\item{threshold}{Minimum correlation to accept. Defaults to 1, possible range -1 to 1 (but values much below 1 make no sense)}
+\item{dist}{Output of \code{\link[=sequence_dist]{sequence_dist()}}}
 
 \item{tolerance}{Small positive number to allow for numerical imprecision}
 }
 \description{
-Thresholds correlation between all segments length n of a vector
+Thresholds distances between all segments length n of a vector
 }
 \details{
-Tests if correlations are >= than a given threshold (with tolerance for imprecision in correlations). Default threshold is 1 (perfect correlation). Might be useful to reduce this slightly, or equivalently increase tolerance to allow for cases where imprecision is high.
+Tests if distances are, within tolerance, equal to zero.
 }
 \examples{
 set.seed(42)
 x <- rnorm(10)
 x <- c(x, x[1:4] + 2.03)
-sequ <- sequence_cor(vec = x, n = 4)
-sequence_thresh(sequ)
+sequ <- twopointzerothree:::sequence_dist(vec = x, n = 4)
+twopointzerothree:::sequence_thresh(sequ)
 }

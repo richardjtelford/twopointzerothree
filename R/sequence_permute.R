@@ -17,7 +17,7 @@
 #'   2, 3, 2, 2, 2, 1, 1, 2, 1, 3, 4, 1, 2, 3, 3, 4, 1, 2, 3, 3, 2,
 #'   2, 3, 1, 5, 3, 4, 2, 2, 1, 1, 2, 1, 0, 1, 2
 #' )
-#'
+#' if(FALSE){
 #' suppressWarnings(
 #'   res <- sequence_permute(TotalPrey, min = 5, max = 10, nsamp = 100)
 #' ) # warnings when standard deviation = 0
@@ -25,6 +25,7 @@
 #' library(ggplot2)
 #' ggplot(res, aes(n, p)) +
 #'   geom_col()
+#'   }
 #' @importFrom dplyr ungroup mutate arrange group_by summarise %>%
 #' @importFrom purrr set_names map_int
 #' @importFrom tibble enframe

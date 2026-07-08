@@ -14,9 +14,9 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 Suggests: 
+    ggplot2,
     testthat
 Imports: 
-    plyr,
     tibble,
     rlang,
     dplyr,
@@ -24,8 +24,7 @@ Imports:
     tidyselect,
     DT,
     grDevices,
-    purrr,
-    ggplot2
+    purrr
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1)
 Config/roxygen2/version: 8.0.0
