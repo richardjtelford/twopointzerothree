@@ -18,7 +18,7 @@ Finds correlation between all segments length n of a vector
 Embeds the vector into low-dimensional Euclidean space and then finds correlation between all columns. Pairs of columns with a correlation of 1 are either duplicates or have an offset.
 }
 \examples{
-set.seed(42) 
+set.seed(42)
 x <- rnorm(10)
 x <- c(x, x[1:4] + 2.03)
 sequence_cor(vec = x, n = 4)

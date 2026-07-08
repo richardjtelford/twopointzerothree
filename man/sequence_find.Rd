@@ -15,7 +15,7 @@ sequence_find(vec, n)
 Find and extract duplicate sequences
 }
 \examples{
-set.seed(42) 
+set.seed(42)
 x <- rnorm(10)
 x <- c(x, x[1:4] + 2.03)
 sequence_find(vec = x, n = 5)
