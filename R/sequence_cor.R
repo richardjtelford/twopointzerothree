@@ -2,29 +2,29 @@
 #' @description Finds correlation between all segments length n of a vector
 #' @param vec numeric vector to test for possible offset duplicate sequences
 #' @param n length of duplicate sequence to search for
-#' @details Embeds the vector into low-dimensional Euclidean space and then finds correlation between all columns. Pairs of columns with a correlation of 1 are either duplicates or have an offset. 
+#' @details Embeds the vector into low-dimensional Euclidean space and then finds correlation between all columns. Pairs of columns with a correlation of 1 are either duplicates or have an offset.
 #' @examples
-#' set.seed(42) 
+#' set.seed(42)
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
 #' sequence_cor(vec = x, n = 4)
 #' @importFrom stats cor embed
-#'    
+#'
 #' @export
 
-sequence_cor <- function(vec, n){ 
-  if(!is.numeric(vec)){
+sequence_cor <- function(vec, n) {
+  if (!is.numeric(vec)) {
     stop("vec must be numeric")
   }
-  if(length(vec) <= n){
+  if (length(vec) <= n) {
     stop("vec must be longer than n")
   }
-  #embed
-  em <- embed(vec, length(vec) - n + 1) 
-  #reverse col order
+  # embed
+  em <- embed(vec, length(vec) - n + 1)
+  # reverse col order
   em <- em[, ncol(em):1]
   co <- cor(em)
   diag(co) <- NA
   attr(co, "len") <- n
   co
-} 
+}

@@ -36,7 +36,7 @@ remotes::install_github("Sorbus-torminalis/twopointzerothree.git")
 
 ```{r example}
 library(twopointzerothree)
-data("kp2014")# part of the data from Keiser & Pruitt 2014
+data("kp2014") # part of the data from Keiser & Pruitt 2014
 sequence_find_all(vec = kp2014$`Theridion murarium Aggressiveness...4`)
 ```
 
@@ -46,9 +46,12 @@ If data in several columns need to be checked, they should be appended into one 
 
 ```{r example2}
 sequence_find_all(
-  vec = c(kp2014$`Theridion murarium Aggressiveness...4`,
-          kp2014$`Theridion murarium Aggressiveness...5`,
-          kp2014$`Theridion murarium Aggressiveness...6`))
+  vec = c(
+    kp2014$`Theridion murarium Aggressiveness...4`,
+    kp2014$`Theridion murarium Aggressiveness...5`,
+    kp2014$`Theridion murarium Aggressiveness...6`
+  )
+)
 ```
 To see the duplicate sequences in situ, use `sequence_show`.
 

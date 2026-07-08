@@ -9,6 +9,6 @@ test_that("rotation works", {
 test_that("chi statistic works", {
   x <- c(35, 45, 55)
   a <- chisq.test(x)
-  b<- chi(x)
+  b <- chi(x)
   expect_equal(as.vector(a$statistic), b)
 })
