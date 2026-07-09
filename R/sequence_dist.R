@@ -46,6 +46,16 @@ sequence_dist <- function(vec, n, type = c("identical", "offset", "multiple")) {
     warning("After embedding, all rows include NA")
   }
 
+  # remove rows with all identical values
+  all_eq <- apply(em, 1, \(r) {
+    min(r) != max(r)
+  })
+  em <- em[all_eq, ]
+  if (nrow(em) == 0) {
+    warning("No rows have any variance")
+  }
+
+
   # calculate distance
   d <- dist(em, method = "manhattan")
   attr(d, "len") <- n
