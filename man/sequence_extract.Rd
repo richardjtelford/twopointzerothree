@@ -4,12 +4,14 @@
 \alias{sequence_extract}
 \title{extract duplicate sequences}
 \usage{
-sequence_extract(th, vec)
+sequence_extract(th, vec, n)
 }
 \arguments{
 \item{th}{result of sequence_thresh}
 
 \item{vec}{vector with possible duplicates}
+
+\item{n}{length of sequence sought}
 }
 \description{
 extract duplicate sequences
@@ -19,6 +21,5 @@ extract duplicate sequences
 x <- rnorm(10)
 x <- c(x, x[1:4] + 2.03)
 d <- twopointzerothree:::sequence_dist(vec = x, n = 3)
-th <- twopointzerothree:::sequence_thresh(d)
-twopointzerothree:::sequence_extract(th, vec = x)
+twopointzerothree:::sequence_extract(d, vec = x)
 }

@@ -10,7 +10,7 @@
 #' length and the third is a unique identifier for each sequence length.
 #' @examples
 #' data(kp2014)
-#' sequence_show(kp2014, meta_cols = 1:3, test_cols = starts_with("Theridion"))
+#' sequence_show(kp2014, meta_cols = 1:3, test_cols = starts_with("Theridion"), type = "offset")
 #' @importFrom dplyr is.grouped_df select mutate full_join bind_cols arrange rename_with
 #' @importFrom tidyr pivot_longer pivot_wider
 #' @importFrom tidyselect peek_vars

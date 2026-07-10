@@ -5,10 +5,10 @@ test_that("finds duplicates", {
   s1 <- sequence_dist(vec = x, n = 4)
 
   # no duplicate
-  expect_gt(min(s1, na.rm = TRUE), 0)
+  expect_true(all(s1 == 0))
 
   # duplicate sequence
   x2 <- c(x, x[1:4] + 2.03) # with offset duplicate
   s2 <- sequence_dist(vec = x2, n = 4, type = "offset")
-  expect_equal(min(s2, na.rm = TRUE), 0)
+  expect_equal(sum(s2), 1)
 })

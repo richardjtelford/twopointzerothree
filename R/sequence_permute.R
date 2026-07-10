@@ -39,7 +39,12 @@ sequence_permute <- function(vec, min = 5, max = 10, nsamp = 100,
       sequence_find(vec = sample(vec), n = n, type = type)
     }) |>
     map(\(s) {
-      tibble(sequences = if_else(nrow(s) > 0, max(s$duplicate_no), false = 0))
+      n_seq <- if (nrow(s)) {
+        max(s$duplicate_no)
+      } else {
+        0
+      }
+      tibble(sequences = n_seq)
     }) |>
     list_rbind(names_to = "n") |>
     mutate(n = as.integer(.data$n))

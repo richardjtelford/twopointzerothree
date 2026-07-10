@@ -4,7 +4,7 @@
 \alias{sequence_dist}
 \title{segment_dist}
 \usage{
-sequence_dist(vec, n, type = c("identical", "offset", "multiple"))
+sequence_dist(vec, n, type = c("identical", "offset", "multiple"), tolerance)
 }
 \arguments{
 \item{vec}{numeric vector to test for possible offset duplicate sequences}
@@ -12,6 +12,8 @@ sequence_dist(vec, n, type = c("identical", "offset", "multiple"))
 \item{n}{length of duplicate sequence to search for}
 
 \item{type}{Type of duplicate sought. See \code{\link[=sequence_find]{sequence_find()}} for details.}
+
+\item{tolerance}{Small positive number to allow for numerical imprecision}
 }
 \description{
 Finds distance between all segments length n of a vector

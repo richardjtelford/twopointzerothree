@@ -24,7 +24,10 @@ Imports:
     tidyselect,
     DT,
     grDevices,
-    purrr
+    purrr,
+    Rcpp (>= 1.1.1)
 Depends: 
     R (>= 4.1)
 Config/roxygen2/version: 8.0.0
+LinkingTo: 
+    Rcpp

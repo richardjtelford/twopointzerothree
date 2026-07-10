@@ -18,7 +18,6 @@
 #' x <- c(x, x[1:4] + 2.03)
 #' twopointzerothree:::sequence_find(vec = x, n = 5, type = "offset")
 sequence_find <- function(vec, n, type, tolerance) {
-  d <- sequence_dist(vec = vec, n = n, type = type)
-  th <- sequence_thresh(dist = d, tolerance = tolerance)
-  sequence_extract(th, vec)
+  d <- sequence_dist(vec = vec, n = n, type = type, tolerance)
+  sequence_extract(d, vec, n = n)
 }
