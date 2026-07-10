@@ -3,6 +3,7 @@
 #' @param vec numeric vector to test for possible offset duplicate sequences
 #' @param n length of duplicate sequence to search for
 #' @param type Type of duplicate sought. See [sequence_find()] for details.
+#' @param tolerance Small positive number to allow for numerical imprecision
 #' @details Embeds the vector into low-dimensional Euclidean space and then
 #' finds manhattan distance between all pairs of rows
 #' Pairs of rows with a distance of 0 are identical if `type` is "identical".
@@ -18,7 +19,12 @@
 #' @importFrom stats dist embed na.omit
 
 
-sequence_dist <- function(vec, n, type = c("identical", "offset", "multiple")) {
+sequence_dist <- function(vec, n,
+                          type = c("identical", "offset", "multiple"),
+                          tolerance) {
+  if (missing(tolerance)) {
+    tolerance <- sqrt(.Machine$double.eps)
+  }
   type <- match.arg(type)
   if (!is.numeric(vec)) {
     stop("vec must be numeric")
@@ -29,7 +35,7 @@ sequence_dist <- function(vec, n, type = c("identical", "offset", "multiple")) {
   # embed
   em <- embed(vec, n)
   # reverse col order
-  em <- em[, rev(seq_len(ncol(em)))]
+  em <- em[, rev(seq_len(ncol(em)))] ## to delete as pointless?
 
   # treat for type
   em <- switch(type,
@@ -57,7 +63,8 @@ sequence_dist <- function(vec, n, type = c("identical", "offset", "multiple")) {
 
 
   # calculate distance
-  d <- dist(em, method = "manhattan")
-  attr(d, "len") <- n
+  d <- near_dist_cpp(em, tolerance = tolerance)
+  attr(d, "Labels") <- rownames(em)
+
   d
 }

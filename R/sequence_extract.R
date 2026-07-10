@@ -1,20 +1,20 @@
 #' extract duplicate sequences
 #' @param th result of sequence_thresh
 #' @param vec vector with possible duplicates
+#' @param n length of sequence sought
 #' @importFrom tibble tibble
 #' @examples
 #' #' set.seed(42)
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
 #' d <- twopointzerothree:::sequence_dist(vec = x, n = 3)
-#' th <- twopointzerothree:::sequence_thresh(d)
-#' twopointzerothree:::sequence_extract(th, vec = x)
+#' twopointzerothree:::sequence_extract(d, vec = x)
 #' @importFrom rlang .data
 #' @importFrom tibble tibble
 #' @importFrom purrr list_rbind
 
 
-sequence_extract <- function(th, vec) {
+sequence_extract <- function(th, vec, n) {
   # get indices where th is true (ie within tolerance of zero)
   dups <- finv(which(th), th)
 
@@ -23,7 +23,6 @@ sequence_extract <- function(th, vec) {
   dups[, "i"] <- as.numeric(labels[dups[, "i"]])
   dups[, "j"] <- as.numeric(labels[dups[, "j"]])
 
-  n <- attr(th, "len")
   if (nrow(dups) == 0) {
     tibble(
       length = numeric(),
