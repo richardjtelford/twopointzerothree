@@ -16,8 +16,8 @@
 #' set.seed(42)
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
-#' twopointzerothree:::sequence_find(vec = x, n = 5, type = "offset")
-sequence_find <- function(vec, n, type, tolerance) {
-  d <- sequence_dist(vec = vec, n = n, type = type, tolerance)
-  sequence_extract(d, vec, n = n)
+#' detectduplicate:::dup_find(vec = x, n = 5, type = "offset")
+dup_find <- function(vec, n, type, tolerance) {
+  d <- dup_dist(vec = vec, n = n, type = type, tolerance)
+  dup_extract(d, vec, n = n)
 }

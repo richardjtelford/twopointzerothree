@@ -10,7 +10,7 @@
 #' length and the third is a unique identifier for each sequence length.
 #' @examples
 #' data(kp2014)
-#' sequence_show(kp2014, meta_cols = 1:3, test_cols = starts_with("Theridion"), type = "offset")
+#' dup_show(kp2014, meta_cols = 1:3, test_cols = starts_with("Theridion"), type = "offset")
 #' @importFrom dplyr is.grouped_df select mutate full_join bind_cols arrange rename_with
 #' @importFrom tidyr pivot_longer pivot_wider
 #' @importFrom tidyselect peek_vars
@@ -18,7 +18,7 @@
 #' @importFrom grDevices hcl.colors
 #' @importFrom rlang .data
 #' @export
-sequence_show <- function(data, meta_cols, test_cols, ...) {
+dup_show <- function(data, meta_cols, test_cols, ...) {
   if (is.grouped_df(data)) {
     stop("Cannot use grouped data - please use ungroup() first")
   }
@@ -27,7 +27,7 @@ sequence_show <- function(data, meta_cols, test_cols, ...) {
     select({{ test_cols }}) |>
     unlist()
 
-  found_sequences <- sequence_find_all(test_data, ...) |>
+  found_sequences <- dup_find_all(test_data, ...) |>
     mutate(id = paste(.data$length, .data$duplicate_no, sep = "."), .before = 1) |>
     select(.data$id, .data$pos1, .data$pos2) |>
     pivot_longer(-.data$id, names_to = "name", values_to = "pos") |>

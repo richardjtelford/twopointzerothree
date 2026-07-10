@@ -2,7 +2,7 @@
 #' @description Finds distance between all segments length n of a vector
 #' @param vec numeric vector to test for possible offset duplicate sequences
 #' @param n length of duplicate sequence to search for
-#' @param type Type of duplicate sought. See [sequence_find()] for details.
+#' @param type Type of duplicate sought. See [dup_find()] for details.
 #' @param tolerance Small positive number to allow for numerical imprecision
 #' @details Embeds the vector into low-dimensional Euclidean space and then
 #' finds manhattan distance between all pairs of rows
@@ -15,11 +15,11 @@
 #' set.seed(42)
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
-#' twopointzerothree:::sequence_dist(vec = x, n = 4, type = "offset")
+#' detectduplicate:::dup_dist(vec = x, n = 4, type = "offset")
 #' @importFrom stats dist embed na.omit
 
 
-sequence_dist <- function(vec, n,
+dup_dist <- function(vec, n,
                           type = c("identical", "offset", "multiple"),
                           tolerance) {
   if (missing(tolerance)) {

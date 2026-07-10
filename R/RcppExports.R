@@ -11,6 +11,6 @@
 #' @return A distance object containing TRUE for rows that are identical (within tolerance), false otherwise
 #' @export
 near_dist_cpp <- function(k, tolerance) {
-    .Call(`_twopointzerothree_near_dist_cpp`, k, tolerance)
+    .Call(`_detectduplicate_near_dist_cpp`, k, tolerance)
 }
 

@@ -7,14 +7,14 @@
 #' #' set.seed(42)
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
-#' d <- twopointzerothree:::sequence_dist(vec = x, n = 3)
-#' twopointzerothree:::sequence_extract(d, vec = x)
+#' d <- detectduplicate:::dup_dist(vec = x, n = 3)
+#' detectduplicate:::dup_extract(d, vec = x)
 #' @importFrom rlang .data
 #' @importFrom tibble tibble
 #' @importFrom purrr list_rbind
 
 
-sequence_extract <- function(th, vec, n) {
+dup_extract <- function(th, vec, n) {
   # get indices where th is true (ie within tolerance of zero)
   dups <- finv(which(th), th)
 

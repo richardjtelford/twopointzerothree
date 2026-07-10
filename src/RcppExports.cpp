@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // near_dist_cpp
 LogicalVector near_dist_cpp(NumericMatrix k, double tolerance);
-RcppExport SEXP _twopointzerothree_near_dist_cpp(SEXP kSEXP, SEXP toleranceSEXP) {
+RcppExport SEXP _detectduplicate_near_dist_cpp(SEXP kSEXP, SEXP toleranceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -24,11 +24,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_twopointzerothree_near_dist_cpp", (DL_FUNC) &_twopointzerothree_near_dist_cpp, 2},
+    {"_detectduplicate_near_dist_cpp", (DL_FUNC) &_detectduplicate_near_dist_cpp, 2},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_twopointzerothree(DllInfo *dll) {
+RcppExport void R_init_detectduplicate(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

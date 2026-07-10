@@ -3,6 +3,6 @@
 ## usethis namespace: end
 
 ## usethis namespace: start
-#' @useDynLib twopointzerothree, .registration = TRUE
+#' @useDynLib detectduplicate, .registration = TRUE
 ## usethis namespace: end
 NULL

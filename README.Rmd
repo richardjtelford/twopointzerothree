@@ -11,33 +11,28 @@ knitr::opts_chunk$set(
 )
 ```
 
-# twopointzerothree
+# detectduplicate
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-`twopointzerothree` is motivated by an [expression of concern](https://pubpeer.com/publications/BF638A197BC80D145674D8118BE37F) concerning a paper coauthored by Dr Pruitt following the discovery, amongst other issues, that 
+`detectduplicate` detects duplicate sequences of numbers. 
+It can also detect pairs of sequences that have a constant offset, and/or a constant multiplier.
 
-> Seven consecutive values from _Theridon_ agressiveness assay #1 differ exactly by + 2.03 from another exact sequence in aggressiveness assay #1 in a different treatment group
-
-I wanted to know how this could be done. 
-As far as I know, standard tools (n-grams) only detect duplicate sequences, not duplicate sequences with an offset.
-
-`twopointzerothree` develops a method for detecting duplicate offset sequences by searching for repeat sequences of perfectly correlated numbers.
-These repeat sequences are either duplicates or offset duplicates.
-
-`twopointzerothree` can be installed with 
+`detectduplicate` can be installed with 
 
 ```{r install, eval = FALSE}
-remotes::install_github("Sorbus-torminalis/twopointzerothree.git")
+# install.packages("pak")
+pak::pak("richardjtelford/detectduplicate")
 ```
 
-`twopointzerothree` requires a vector of numbers as input. 
+
+`detectduplicate` requires a vector of numbers as input. 
 
 ```{r example}
-library(twopointzerothree)
+library(detectduplicate)
 data("kp2014") # part of the data from Keiser & Pruitt 2014
-sequence_find_all(vec = kp2014$`Theridion murarium Aggressiveness...4`)
+dup_find_all(vec = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
 ```
 
 The result give the position and values of the first and second sets of duplicated values and any offset.
@@ -45,32 +40,33 @@ The result give the position and values of the first and second sets of duplicat
 If data in several columns need to be checked, they should be appended into one vector.
 
 ```{r example2}
-sequence_find_all(
+dup_find_all(
   vec = c(
     kp2014$`Theridion murarium Aggressiveness...4`,
     kp2014$`Theridion murarium Aggressiveness...5`,
     kp2014$`Theridion murarium Aggressiveness...6`
-  )
+  ), 
+  type = "offset"
 )
 ```
-To see the duplicate sequences in situ, use `sequence_show`.
+To see the duplicate sequences in situ, use `dup_show`.
 
 ```{r, eval = FALSE}
-sequence_show(kp2014, meta_cols = 1:3, test_cols = starts_with("Theridion"))
+dup_show(kp2014, meta_cols = 1:3, test_cols = starts_with("Theridion"))
 ```
 
 
 ## Notes
 
-`twopointzerothree` will report the all the duplicate sequences it can find.
+`detectduplicate` will report the all the duplicate sequences it can find.
 
-`twopointzerothree` will not report sequences of identical values as duplicates as `cor(rep(1, 3), rep(2, 3))` returns NA.
+`detectduplicate` will not report sequences of identical values as duplicates as `cor(rep(1, 3), rep(2, 3))` returns NA.
+
+`detectduplicate` reports duplicate values.
+It does not report why. There may be valid reasons for duplicate sequences.
 
 If very short sequences (e.g. length 3) are searched for, there is a high risk of false positives. 
-These can be identified by having offset values that are not consistent.
-
-`twopointzerothree` reports duplicate values.
-It does not report why. 
+This risk is especially high if the data are reported with low precision, cardinality is low, or test are made for pairs of sequences with a constant multiplier and offset 
 
 If you find this package useful or have ideas about how it could be improve, please leave a message in the issues tab.
 

@@ -1,15 +1,14 @@
-Package: twopointzerothree
-Title: Detects Duplicate Sequences of Offset Values
+Package: detectduplicate
+Title: Detect Duplicate Sequences
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Sorbus",
-           family = "torminalis",
-           role = c("aut", "cre"),
-           email = "Sorbus.torminalis@protonmail.com")
-Description: What the package does (one paragraph).
+          person(given = c("Richard", "James"), "Telford", 
+                 email = "richard.telford@uib.no", role = c("aut", "cre"), 
+                 comment = c(ORCID = "https://orcid.org/0000-0001-9826-3076"))
+Description: Detects duplicate sequences of data, perhaps with an offset or a multiplier.
 License: GPL-3
-URL: https://github.com/Sorbus-torminalis/twopointzerothree
-BugReports: https://github.com/Sorbus-torminalis/twopointzerothree/issues
+URL: https://github.com/richardjtelford/detectduplicate
+BugReports: https://github.com/richardjtelford/detectduplicate/issues
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

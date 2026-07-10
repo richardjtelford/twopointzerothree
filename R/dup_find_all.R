@@ -11,7 +11,7 @@
 #' Defaults to `sqrt(.Machine$double.eps)`.
 #' @examples
 #' data(kp2014)
-#' sequence_find_all(
+#' dup_find_all(
 #'   vec = c(
 #'     kp2014$`Theridion murarium Aggressiveness...4`,
 #'     kp2014$`Theridion murarium Aggressiveness...5`,
@@ -22,14 +22,14 @@
 #' @importFrom dplyr bind_rows distinct cur_group_id
 #' @importFrom rlang .data
 #' @export
-sequence_find_all <- function(vec, type = "identical", min = 4, tolerance) {
+dup_find_all <- function(vec, type = "identical", min = 4, tolerance) {
   # max possible duplicate
   max <- floor(length(vec) / 2)
 
   # iterate to find different length duplicates.
   results <- list()
   for (n in min:max) {
-    found <- sequence_find(vec = vec, n = n, type = type, tolerance = tolerance)
+    found <- dup_find(vec = vec, n = n, type = type, tolerance = tolerance)
 
     results[[n - min + 1]] <- found # allocate to list
     if (nrow(found) == 0) {

@@ -1,4 +1,4 @@
 library(testthat)
-library(twopointzerothree)
+library(detectduplicate)
 
-test_check("twopointzerothree")
+test_check("detectduplicate")
