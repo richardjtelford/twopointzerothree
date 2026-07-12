@@ -7,10 +7,11 @@
 #' of rows, reporting whether they are identical or not, with a tolerance for small differences.
 #' 
 #' @param k Numeric vector
-#' @param tolerance The tolerance for comparing values.
+#' @param tolerance Numeric The tolerance for comparing values.
+#' @param rev boolean Test for reversed duplicates e.g ABC matches CBA
 #' @return A distance object containing TRUE for rows that are identical (within tolerance), false otherwise
 #' @export
-near_dist_cpp <- function(k, tolerance) {
-    .Call(`_detectduplicate_near_dist_cpp`, k, tolerance)
+near_dist_cpp <- function(k, tolerance, rev) {
+    .Call(`_detectduplicate_near_dist_cpp`, k, tolerance, rev)
 }
 

@@ -4,7 +4,7 @@
 \alias{dup_find_all}
 \title{Find and extract all duplicate sequences}
 \usage{
-dup_find_all(vec, type = "identical", min = 4, tolerance)
+dup_find_all(vec, type = "identical", min = 4, tolerance, reverse)
 }
 \arguments{
 \item{vec}{vector with possible duplicates}
@@ -20,6 +20,9 @@ and "multiple" for duplicates with a multiplicative offset
 
 \item{tolerance}{Small positive number to allow for numerical imprecision.
 Defaults to \code{sqrt(.Machine$double.eps)}.}
+
+\item{reverse}{logical, test if the sequence is a reversed duplicate.
+Defaults to FALSE}
 }
 \description{
 Find and extract all duplicate sequences

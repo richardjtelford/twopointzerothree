@@ -3,6 +3,8 @@
 #' @param n length of sequence sought
 #' @param tolerance Small positive number to allow for numerical imprecision
 #' @param type Type of duplicate sought. See details.
+#' @param reverse logical, test if the sequence is a reversed duplicate.
+
 #'
 #' @details
 #' Options for `type` are "identical" for exact duplicates (new == old),
@@ -17,7 +19,7 @@
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
 #' detectduplicate:::dup_find(vec = x, n = 5, type = "offset")
-dup_find <- function(vec, n, type, tolerance) {
+dup_find <- function(vec, n, type, tolerance, reverse) {
   d <- dup_dist(vec = vec, n = n, type = type, tolerance)
   dup_extract(d, vec, n = n)
 }

@@ -4,7 +4,7 @@
 \alias{dup_find}
 \title{Find and extract duplicate sequences}
 \usage{
-dup_find(vec, n, type, tolerance)
+dup_find(vec, n, type, tolerance, reverse)
 }
 \arguments{
 \item{vec}{vector with possible duplicates}
@@ -14,6 +14,8 @@ dup_find(vec, n, type, tolerance)
 \item{type}{Type of duplicate sought. See details.}
 
 \item{tolerance}{Small positive number to allow for numerical imprecision}
+
+\item{reverse}{logical, test if the sequence is a reversed duplicate.}
 }
 \description{
 Find and extract duplicate sequences

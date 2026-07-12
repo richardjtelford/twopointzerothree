@@ -4,7 +4,13 @@
 \alias{dup_dist}
 \title{segment_dist}
 \usage{
-dup_dist(vec, n, type = c("identical", "offset", "multiple"), tolerance)
+dup_dist(
+  vec,
+  n,
+  type = c("identical", "offset", "multiple"),
+  tolerance,
+  reverse = FALSE
+)
 }
 \arguments{
 \item{vec}{numeric vector to test for possible offset duplicate sequences}
@@ -14,6 +20,8 @@ dup_dist(vec, n, type = c("identical", "offset", "multiple"), tolerance)
 \item{type}{Type of duplicate sought. See \code{\link[=dup_find]{dup_find()}} for details.}
 
 \item{tolerance}{Small positive number to allow for numerical imprecision}
+
+\item{reverse}{logical, test if the sequence is a reversed duplicate.}
 }
 \description{
 Finds distance between all segments length n of a vector

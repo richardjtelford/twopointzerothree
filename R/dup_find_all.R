@@ -9,6 +9,8 @@
 #' (new == old * constant1 + constant2)
 #' @param tolerance Small positive number to allow for numerical imprecision.
 #' Defaults to `sqrt(.Machine$double.eps)`.
+#' @param reverse logical, test if the sequence is a reversed duplicate. 
+#' Defaults to FALSE
 #' @examples
 #' data(kp2014)
 #' dup_find_all(
@@ -22,7 +24,7 @@
 #' @importFrom dplyr bind_rows distinct cur_group_id
 #' @importFrom rlang .data
 #' @export
-dup_find_all <- function(vec, type = "identical", min = 4, tolerance) {
+dup_find_all <- function(vec, type = "identical", min = 4, tolerance, reverse) {
   # max possible duplicate
   max <- floor(length(vec) / 2)
 

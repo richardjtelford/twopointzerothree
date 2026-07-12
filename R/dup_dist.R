@@ -4,6 +4,7 @@
 #' @param n length of duplicate sequence to search for
 #' @param type Type of duplicate sought. See [dup_find()] for details.
 #' @param tolerance Small positive number to allow for numerical imprecision
+#' @param reverse logical, test if the sequence is a reversed duplicate.
 #' @details Embeds the vector into low-dimensional Euclidean space and then
 #' finds manhattan distance between all pairs of rows
 #' Pairs of rows with a distance of 0 are identical if `type` is "identical".
@@ -20,8 +21,9 @@
 
 
 dup_dist <- function(vec, n,
-                          type = c("identical", "offset", "multiple"),
-                          tolerance) {
+                     type = c("identical", "offset", "multiple"),
+                     tolerance, 
+                     reverse = FALSE) {
   if (missing(tolerance)) {
     tolerance <- sqrt(.Machine$double.eps)
   }
@@ -63,7 +65,7 @@ dup_dist <- function(vec, n,
 
 
   # calculate distance
-  d <- near_dist_cpp(em, tolerance = tolerance)
+  d <- near_dist_cpp(em, tolerance = tolerance, rev = reverse)
   attr(d, "Labels") <- rownames(em)
 
   d

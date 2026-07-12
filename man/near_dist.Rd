@@ -5,12 +5,14 @@
 \alias{near_dist_cpp}
 \title{Detect rows that are (within tolerance) identical}
 \usage{
-near_dist_cpp(k, tolerance)
+near_dist_cpp(k, tolerance, rev)
 }
 \arguments{
 \item{k}{Numeric vector}
 
-\item{tolerance}{The tolerance for comparing values.}
+\item{tolerance}{Numeric The tolerance for comparing values.}
+
+\item{rev}{boolean Test for reversed duplicates e.g ABC matches CBA}
 }
 \value{
 A distance object containing TRUE for rows that are identical (within tolerance), false otherwise
