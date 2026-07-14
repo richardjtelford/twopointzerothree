@@ -57,7 +57,7 @@ dup_find_all(
     kp2014$`Theridion murarium Aggressiveness...4`,
     kp2014$`Theridion murarium Aggressiveness...5`,
     kp2014$`Theridion murarium Aggressiveness...6`
-  ), 
+  ),
   type = "offset"
 )
 #> # A tibble: 32 × 7
@@ -88,7 +88,8 @@ dup_show(kp2014, meta_cols = 1:3, test_cols = starts_with("Theridion"))
 find.
 
 `detectduplicate` will not report sequences of identical values as
-duplicates as `cor(rep(1, 3), rep(2, 3))` returns NA.
+duplicates. I don’t think it is useful to report “duplicates” within and
+between long sequences of e.g. zeros.
 
 `detectduplicate` reports duplicate values. It does not report why.
 There may be valid reasons for duplicate sequences.
