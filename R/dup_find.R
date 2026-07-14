@@ -2,18 +2,17 @@
 #' @param vec vector with possible duplicates
 #' @param n length of sequence sought
 #' @param tolerance Small positive number to allow for numerical imprecision
-#' @param type Type of duplicate sought. See details.
+#' @param type Type of duplicate sought.
+#' Options are "identical" for exact duplicates,
+#' "offset" for duplicates with an fixed offset,
+#' "multiply" where one duplicate is a multiple of another,
+#' and "multiple_offset" where one duplicate is a multiple of another with an offset.
 #' @param reverse logical, test if the sequence is a reversed duplicate.
 
 #'
 #' @details
-#' Options for `type` are "identical" for exact duplicates (new == old),
-#' "offset" for duplicates with an fixed offset (new == old + constant ),
-#' and "multiple" for duplicates with a multiplicative offset,
-#' and perhaps a constant offset (new == old * constant1 + constant2).
-#'
-#' Note that multiplicative offsets will also find constant offsets
-#' (i.e. constant1 = 1), and identical duplicates (i.e. constant2 = 0)
+#' Note that type = "multiply_offsets" will also find multiplied duplicates (offset = 0),
+#' constant offsets (multiplier = 1), and identical duplicates (multiplier = 1, offset = 0)
 #' @examples
 #' set.seed(42)
 #' x <- rnorm(10)

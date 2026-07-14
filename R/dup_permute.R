@@ -7,7 +7,8 @@
 #' @param min minimum length of sequence sought
 #' @param max maximum length of sequence sought
 #' @param nsamp number of replications
-#' @param type Type of duplicate sought: "identical", "offset", or "multiple"
+#' @param type Type of duplicate sought: "identical", "offset", "multiply" or
+#'  "multiply_offset"
 #'
 #' @examples
 #' # data from https://doi.org/10.5061/dryad.bd26mq0
@@ -31,7 +32,7 @@
 #' @export
 
 dup_permute <- function(vec, min = 5, max = 10, nsamp = 100,
-                             type = "identical") {
+                        type = "identical") {
   min:max |>
     set_names() |>
     rep(each = nsamp) |>

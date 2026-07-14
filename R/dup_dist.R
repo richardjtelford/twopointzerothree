@@ -6,11 +6,11 @@
 #' @param tolerance Small positive number to allow for numerical imprecision
 #' @param reverse logical, test if the sequence is a reversed duplicate.
 #' @details Embeds the vector into low-dimensional Euclidean space and then
-#' finds manhattan distance between all pairs of rows
+#' tests is rows are identical within tolerance.
 #' Pairs of rows with a distance of 0 are identical if `type` is "identical".
-#' If `type` is "offset, rows are de-meaned before the distance is calculated.
-#' If `type` is multiple, rows are standardised to zero mean and unit
-#' standard deviation before the distance is calculated.
+#' If `type` is "offset, rows are centred before the distance is calculated.
+#' If `type` is multiply, rows are scaled without centring.
+#' If `type` is multiply_offset, rows are centred and scales.
 #'
 #' @examples
 #' set.seed(42)
@@ -21,7 +21,7 @@
 
 
 dup_dist <- function(vec, n,
-                     type = c("identical", "offset", "multiple"),
+                     type = c("identical", "offset", "multiply", "multiply_offset"),
                      tolerance, 
                      reverse = FALSE) {
   if (missing(tolerance)) {
@@ -31,6 +31,7 @@ dup_dist <- function(vec, n,
   if (!is.numeric(vec)) {
     stop("vec must be numeric")
   }
+  multiple <- type %in% c("multiply", "multiply_offset")
   if (length(vec) <= n) {
     stop("vec must be longer than n")
   }
@@ -43,7 +44,8 @@ dup_dist <- function(vec, n,
   em <- switch(type,
     identical = em,
     offset = t(scale(t(em), center = TRUE, scale = FALSE)),
-    multiple = t(scale(t(em)))
+    multiply = t(scale(t(em), center = FALSE, scale = TRUE)),
+    multiply_offset = t(scale(t(em), center = TRUE, scale = TRUE))
   )
 
   # set rownames
@@ -65,7 +67,7 @@ dup_dist <- function(vec, n,
 
 
   # calculate distance
-  d <- near_dist_cpp(em, tolerance = tolerance, rev = reverse)
+  d <- near_dist_cpp(em, tolerance = tolerance, rev = reverse, negate = multiple)
   attr(d, "Labels") <- rownames(em)
 
   d

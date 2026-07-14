@@ -11,21 +11,22 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // near_dist_cpp
-LogicalVector near_dist_cpp(NumericMatrix k, double tolerance, bool rev);
-RcppExport SEXP _detectduplicate_near_dist_cpp(SEXP kSEXP, SEXP toleranceSEXP, SEXP revSEXP) {
+LogicalVector near_dist_cpp(NumericMatrix k, double tolerance, bool rev, bool negate);
+RcppExport SEXP _detectduplicate_near_dist_cpp(SEXP kSEXP, SEXP toleranceSEXP, SEXP revSEXP, SEXP negateSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericMatrix >::type k(kSEXP);
     Rcpp::traits::input_parameter< double >::type tolerance(toleranceSEXP);
     Rcpp::traits::input_parameter< bool >::type rev(revSEXP);
-    rcpp_result_gen = Rcpp::wrap(near_dist_cpp(k, tolerance, rev));
+    Rcpp::traits::input_parameter< bool >::type negate(negateSEXP);
+    rcpp_result_gen = Rcpp::wrap(near_dist_cpp(k, tolerance, rev, negate));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_detectduplicate_near_dist_cpp", (DL_FUNC) &_detectduplicate_near_dist_cpp, 3},
+    {"_detectduplicate_near_dist_cpp", (DL_FUNC) &_detectduplicate_near_dist_cpp, 4},
     {NULL, NULL, 0}
 };
 

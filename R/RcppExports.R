@@ -9,9 +9,10 @@
 #' @param k Numeric vector
 #' @param tolerance Numeric The tolerance for comparing values.
 #' @param rev boolean Test for reversed duplicates e.g ABC matches CBA
+#' @param negate boolean Also test for negative duplicates.
 #' @return A distance object containing TRUE for rows that are identical (within tolerance), false otherwise
 #' @export
-near_dist_cpp <- function(k, tolerance, rev) {
-    .Call(`_detectduplicate_near_dist_cpp`, k, tolerance, rev)
+near_dist_cpp <- function(k, tolerance, rev, negate) {
+    .Call(`_detectduplicate_near_dist_cpp`, k, tolerance, rev, negate)
 }
 

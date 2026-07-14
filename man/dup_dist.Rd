@@ -7,7 +7,7 @@
 dup_dist(
   vec,
   n,
-  type = c("identical", "offset", "multiple"),
+  type = c("identical", "offset", "multiply", "multiply_offset"),
   tolerance,
   reverse = FALSE
 )
@@ -28,11 +28,11 @@ Finds distance between all segments length n of a vector
 }
 \details{
 Embeds the vector into low-dimensional Euclidean space and then
-finds manhattan distance between all pairs of rows
+tests is rows are identical within tolerance.
 Pairs of rows with a distance of 0 are identical if \code{type} is "identical".
-If \code{type} is "offset, rows are de-meaned before the distance is calculated.
-If \code{type} is multiple, rows are standardised to zero mean and unit
-standard deviation before the distance is calculated.
+If \code{type} is "offset, rows are centred before the distance is calculated.
+If \code{type} is multiply, rows are scaled without centring.
+If \code{type} is multiply_offset, rows are centred and scales.
 }
 \examples{
 set.seed(42)

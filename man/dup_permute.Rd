@@ -15,7 +15,8 @@ dup_permute(vec, min = 5, max = 10, nsamp = 100, type = "identical")
 
 \item{nsamp}{number of replications}
 
-\item{type}{Type of duplicate sought: "identical", "offset", or "multiple"}
+\item{type}{Type of duplicate sought: "identical", "offset", "multiply" or
+"multiply_offset"}
 }
 \description{
 Vectors with low cardinality have a high risk of false positive

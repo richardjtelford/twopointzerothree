@@ -10,10 +10,10 @@ dup_find_all(vec, type = "identical", min = 4, tolerance, reverse)
 \item{vec}{vector with possible duplicates}
 
 \item{type}{Type of duplicate sought.
-Options are "identical" for exact duplicates (new == old),
-"offset" for duplicates with an fixed offset (new == old + constant ),
-and "multiple" for duplicates with a multiplicative offset
-(new == old * constant1 + constant2)}
+Options are "identical" for exact duplicates,
+"offset" for duplicates with an fixed offset,
+"multiply" where one duplicate is a multiple of another,
+and "multiple_offset" where one duplicate is a multiple of another with an offset.}
 
 \item{min}{length of the shortest sequence of interest
 (high risk of false positives if this is short)}
