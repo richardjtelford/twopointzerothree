@@ -1,5 +1,5 @@
 #' extract duplicate sequences
-#' @param th result of sequence_thresh
+#' @param d result of `dup_dist`
 #' @param vec vector with possible duplicates
 #' @param n length of sequence sought
 #' @importFrom tibble tibble
@@ -12,30 +12,35 @@
 #' @importFrom rlang .data
 #' @importFrom tibble tibble
 #' @importFrom purrr list_rbind
+#' @importFrom dplyr mutate relocate
+#' @importFrom stats lm coef
 
 
-dup_extract <- function(th, vec, n) {
-  # get indices where th is true (ie within tolerance of zero)
-  dups <- finv(which(th), th)
+dup_extract <- function(d, vec, n) {
+  # get type
+  type <- attr(d, "type") 
+  
+  # get indices where d is true (ie within tolerance of zero)
+  dups <- finv(which(d), d)
 
   # recode from index to row
-  labels <- attr(th, "Labels")
+  labels <- attr(d, "Labels")
   dups[, "i"] <- as.numeric(labels[dups[, "i"]])
   dups[, "j"] <- as.numeric(labels[dups[, "j"]])
 
   if (nrow(dups) == 0) {
-    tibble(
+    result <- tibble(
+      duplicate_no = integer(),
       length = numeric(),
       pos1 = integer(),
       vec1 = numeric(),
       pos2 = integer(),
       vec2 = numeric(),
-      delta = numeric(),
-      duplicate_no = integer()
+      delta = numeric()
     )
   } else {
-    apply(dups, 1, function(pos) {
-      tibble(
+    result <- apply(dups, 1, function(pos) {
+      out <- tibble(
         length = n,
         pos1 = pos["j"]:(pos["j"] + n - 1),
         vec1 = vec[.data$pos1],
@@ -43,9 +48,27 @@ dup_extract <- function(th, vec, n) {
         vec2 = vec[.data$pos2],
         delta = .data$vec2 - .data$vec1
       )
+      out <- switch(type,
+                    identical = out,
+                    offset = out |> mutate(offset = .data$vec2 - .data$vec1),
+                    multiply = out |> mutate(multiple = .data$vec2 / .data$vec1),
+                    multiply_offset =  {
+                      mod <- lm(vec2 ~ vec1, data = out)
+                      out |> mutate(offset = coef(mod)[1], multiply = coef(mod)[2])
+                    }
+      )
+      out
     }, simplify = FALSE) |>
       list_rbind(names_to = "duplicate_no")
+    
+
   }
+  
+  result <- result |> 
+    relocate(.data$duplicate_no, .before = 1) |> 
+    mutate(type = {{type}}, .after = "duplicate_no")
+    
+  result
 }
 
 

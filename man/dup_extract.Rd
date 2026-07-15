@@ -4,10 +4,10 @@
 \alias{dup_extract}
 \title{extract duplicate sequences}
 \usage{
-dup_extract(th, vec, n)
+dup_extract(d, vec, n)
 }
 \arguments{
-\item{th}{result of sequence_thresh}
+\item{d}{result of \code{dup_dist}}
 
 \item{vec}{vector with possible duplicates}
 

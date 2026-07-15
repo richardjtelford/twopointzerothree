@@ -20,5 +20,5 @@
 #' detectduplicate:::dup_find(vec = x, n = 5, type = "offset")
 dup_find <- function(vec, n, type, tolerance, reverse) {
   d <- dup_dist(vec = vec, n = n, type = type, tolerance)
-  dup_extract(d, vec, n = n)
+  dup_extract(d = d, vec = vec, n = n)
 }

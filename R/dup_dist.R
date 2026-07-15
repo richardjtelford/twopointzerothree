@@ -69,6 +69,7 @@ dup_dist <- function(vec, n,
   # calculate distance
   d <- near_dist_cpp(em, tolerance = tolerance, rev = reverse, negate = multiple)
   attr(d, "Labels") <- rownames(em)
+  attr(d, "type") <- type
 
   d
 }
