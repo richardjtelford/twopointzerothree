@@ -23,56 +23,54 @@ pak::pak("richardjtelford/detectduplicate")
 ``` r
 library(detectduplicate)
 data("kp2014") # part of the data from Keiser & Pruitt 2014
-dup_find_all(vec = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
-#> # A tibble: 16 × 7
-#>    length  pos1  vec1  pos2  vec2 delta duplicate_no
-#>     <dbl> <int> <dbl> <int> <dbl> <dbl>        <int>
-#>  1      9    67 166.     78 162.  -4.35            1
-#>  2      9    68  47.7    79  43.3 -4.35            1
-#>  3      9    69 125.     80 120.  -4.35            1
-#>  4      9    70  91.0    81  86.6 -4.35            1
-#>  5      9    71 134.     82 130.  -4.35            1
-#>  6      9    72 158.     83 153.  -4.35            1
-#>  7      9    73  46.4    84  42.0 -4.35            1
-#>  8      9    74 186.     85 182.  -4.35            1
-#>  9      9    75 148.     86 143.  -4.35            1
-#> 10      7    29  13.2    62  15.3  2.03            2
-#> 11      7    30 202.     63 204.   2.03            2
-#> 12      7    31 229.     64 231.   2.03            2
-#> 13      7    32 645.     65 647.   2.03            2
-#> 14      7    33  15.2    66  17.3  2.03            2
-#> 15      7    34 164.     67 166.   2.03            2
-#> 16      7    35  45.6    68  47.7  2.03            2
+dup_find_all(x = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
+#> # A tibble: 16 × 9
+#>    duplicate_no type   length  pos1  vec1  pos2  vec2 delta offset
+#>           <int> <chr>   <dbl> <int> <dbl> <int> <dbl> <dbl>  <dbl>
+#>  1            1 offset      9    67 166.     78 162.  -4.35  -4.35
+#>  2            1 offset      9    68  47.7    79  43.3 -4.35  -4.35
+#>  3            1 offset      9    69 125.     80 120.  -4.35  -4.35
+#>  4            1 offset      9    70  91.0    81  86.6 -4.35  -4.35
+#>  5            1 offset      9    71 134.     82 130.  -4.35  -4.35
+#>  6            1 offset      9    72 158.     83 153.  -4.35  -4.35
+#>  7            1 offset      9    73  46.4    84  42.0 -4.35  -4.35
+#>  8            1 offset      9    74 186.     85 182.  -4.35  -4.35
+#>  9            1 offset      9    75 148.     86 143.  -4.35  -4.35
+#> 10            2 offset      7    29  13.2    62  15.3  2.03   2.03
+#> 11            2 offset      7    30 202.     63 204.   2.03   2.03
+#> 12            2 offset      7    31 229.     64 231.   2.03   2.03
+#> 13            2 offset      7    32 645.     65 647.   2.03   2.03
+#> 14            2 offset      7    33  15.2    66  17.3  2.03   2.03
+#> 15            2 offset      7    34 164.     67 166.   2.03   2.03
+#> 16            2 offset      7    35  45.6    68  47.7  2.03   2.03
 ```
 
 The result give the position and values of the first and second sets of
 duplicated values and any offset.
 
-If data in several columns need to be checked, they should be appended
-into one vector.
+If data in several columns need to be checked, a data.frame can be
+given.
 
 ``` r
 dup_find_all(
-  vec = c(
-    kp2014$`Theridion murarium Aggressiveness...4`,
-    kp2014$`Theridion murarium Aggressiveness...5`,
-    kp2014$`Theridion murarium Aggressiveness...6`
-  ),
-  type = "offset"
+   x = kp2014[, c("Theridion murarium Aggressiveness...4",
+                  "Theridion murarium Aggressiveness...5",
+                  "Theridion murarium Aggressiveness...6")],
+   type = "offset"
 )
-#> # A tibble: 32 × 7
-#>    length  pos1  vec1  pos2  vec2 delta duplicate_no
-#>     <dbl> <int> <dbl> <int> <dbl> <dbl>        <int>
-#>  1      9    67 166.     78 162.  -4.35            1
-#>  2      9    68  47.7    79  43.3 -4.35            1
-#>  3      9    69 125.     80 120.  -4.35            1
-#>  4      9    70  91.0    81  86.6 -4.35            1
-#>  5      9    71 134.     82 130.  -4.35            1
-#>  6      9    72 158.     83 153.  -4.35            1
-#>  7      9    73  46.4    84  42.0 -4.35            1
-#>  8      9    74 186.     85 182.  -4.35            1
-#>  9      9    75 148.     86 143.  -4.35            1
-#> 10      9    69 125.    127 123.  -2.03            2
+#> # A tibble: 32 × 9
+#>    duplicate_no type   length  pos1  vec1  pos2  vec2 delta offset
+#>           <int> <chr>   <dbl> <int> <dbl> <int> <dbl> <dbl>  <dbl>
+#>  1            1 offset      9    67 166.     78 162.  -4.35  -4.35
+#>  2            1 offset      9    68  47.7    79  43.3 -4.35  -4.35
+#>  3            1 offset      9    69 125.     80 120.  -4.35  -4.35
+#>  4            1 offset      9    70  91.0    81  86.6 -4.35  -4.35
+#>  5            1 offset      9    71 134.     82 130.  -4.35  -4.35
+#>  6            1 offset      9    72 158.     83 153.  -4.35  -4.35
+#>  7            1 offset      9    73  46.4    84  42.0 -4.35  -4.35
+#>  8            1 offset      9    74 186.     85 182.  -4.35  -4.35
+#>  9            1 offset      9    75 148.     86 143.  -4.35  -4.35
+#> 10            2 offset      9    69 125.    127 123.  -2.03  -2.03
 #> # ℹ 22 more rows
 ```
 

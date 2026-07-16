@@ -20,7 +20,7 @@
 #' @examples
 #' data(kp2014)
 #' dup_find_all(
-#'   vec = kp2014$`Theridion murarium Aggressiveness...4`,
+#'   x = kp2014$`Theridion murarium Aggressiveness...4`,
 #'   type = "offset"
 #' )
 "kp2014"

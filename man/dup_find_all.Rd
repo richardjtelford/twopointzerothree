@@ -2,12 +2,18 @@
 % Please edit documentation in R/dup_find_all.R
 \name{dup_find_all}
 \alias{dup_find_all}
+\alias{dup_find_all.default}
+\alias{dup_find_all.data.frame}
 \title{Find and extract all duplicate sequences}
 \usage{
-dup_find_all(vec, type = "identical", min = 4, tolerance, reverse)
+dup_find_all(x, type = "identical", min = 4, tolerance, reverse)
+
+\method{dup_find_all}{default}(x, type = "identical", min = 4, tolerance, reverse)
+
+\method{dup_find_all}{data.frame}(x, type = "identical", min = 4, tolerance, reverse)
 }
 \arguments{
-\item{vec}{vector with possible duplicates}
+\item{x}{vector or data.frame with possible duplicates}
 
 \item{type}{Type of duplicate sought.
 Options are "identical" for exact duplicates,
@@ -30,11 +36,13 @@ Find and extract all duplicate sequences
 \examples{
 data(kp2014)
 dup_find_all(
-  vec = c(
-    kp2014$`Theridion murarium Aggressiveness...4`,
-    kp2014$`Theridion murarium Aggressiveness...5`,
-    kp2014$`Theridion murarium Aggressiveness...6`
-  ),
+  x = kp2014$`Theridion murarium Aggressiveness...4`,
+  type = "offset"
+)
+dup_find_all(
+  x = kp2014[, c("Theridion murarium Aggressiveness...4",
+                 "Theridion murarium Aggressiveness...5",
+                 "Theridion murarium Aggressiveness...6")],
   type = "offset"
 )
 }

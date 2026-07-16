@@ -32,21 +32,19 @@ pak::pak("richardjtelford/detectduplicate")
 ```{r example}
 library(detectduplicate)
 data("kp2014") # part of the data from Keiser & Pruitt 2014
-dup_find_all(vec = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
+dup_find_all(x = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
 ```
 
 The result give the position and values of the first and second sets of duplicated values and any offset.
 
-If data in several columns need to be checked, they should be appended into one vector.
+If data in several columns need to be checked, a data.frame can be given.
 
 ```{r example2}
 dup_find_all(
-  vec = c(
-    kp2014$`Theridion murarium Aggressiveness...4`,
-    kp2014$`Theridion murarium Aggressiveness...5`,
-    kp2014$`Theridion murarium Aggressiveness...6`
-  ),
-  type = "offset"
+   x = kp2014[, c("Theridion murarium Aggressiveness...4",
+                  "Theridion murarium Aggressiveness...5",
+                  "Theridion murarium Aggressiveness...6")],
+   type = "offset"
 )
 ```
 To see the duplicate sequences in situ, use `dup_show`.
