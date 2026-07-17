@@ -40,9 +40,11 @@ dup_find_all(
   type = "offset"
 )
 dup_find_all(
-  x = kp2014[, c("Theridion murarium Aggressiveness...4",
-                 "Theridion murarium Aggressiveness...5",
-                 "Theridion murarium Aggressiveness...6")],
+  x = kp2014[, c(
+    "Theridion murarium Aggressiveness...4",
+    "Theridion murarium Aggressiveness...5",
+    "Theridion murarium Aggressiveness...6"
+  )],
   type = "offset"
 )
 }

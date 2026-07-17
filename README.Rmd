@@ -37,14 +37,16 @@ dup_find_all(x = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset"
 
 The result give the position and values of the first and second sets of duplicated values and any offset.
 
-If data in several columns need to be checked, a data.frame can be given.
+Alternatively, if several columns need of a data.frame to be checked, a data.frame containing just these columns.
 
 ```{r example2}
 dup_find_all(
-   x = kp2014[, c("Theridion murarium Aggressiveness...4",
-                  "Theridion murarium Aggressiveness...5",
-                  "Theridion murarium Aggressiveness...6")],
-   type = "offset"
+  x = kp2014[, c(
+    "Theridion murarium Aggressiveness...4",
+    "Theridion murarium Aggressiveness...5",
+    "Theridion murarium Aggressiveness...6"
+  )],
+  type = "offset"
 )
 ```
 To see the duplicate sequences in situ, use `dup_show`.

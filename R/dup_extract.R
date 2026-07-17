@@ -18,8 +18,8 @@
 
 dup_extract <- function(d, vec, n) {
   # get type
-  type <- attr(d, "type") 
-  
+  type <- attr(d, "type")
+
   # get indices where d is true (ie within tolerance of zero)
   dups <- finv(which(d), d)
 
@@ -49,25 +49,23 @@ dup_extract <- function(d, vec, n) {
         delta = .data$vec2 - .data$vec1
       )
       out <- switch(type,
-                    identical = out,
-                    offset = out |> mutate(offset = .data$vec2 - .data$vec1),
-                    multiply = out |> mutate(multiple = .data$vec2 / .data$vec1),
-                    multiply_offset =  {
-                      mod <- lm(vec2 ~ vec1, data = out)
-                      out |> mutate(offset = coef(mod)[1], multiply = coef(mod)[2])
-                    }
+        identical = out,
+        offset = out |> mutate(offset = .data$vec2 - .data$vec1),
+        multiply = out |> mutate(multiple = .data$vec2 / .data$vec1),
+        multiply_offset = {
+          mod <- lm(vec2 ~ vec1, data = out)
+          out |> mutate(offset = coef(mod)[1], multiply = coef(mod)[2])
+        }
       )
       out
     }, simplify = FALSE) |>
       list_rbind(names_to = "duplicate_no")
-    
-
   }
-  
-  result <- result |> 
-    relocate(.data$duplicate_no, .before = 1) |> 
-    mutate(type = {{type}}, .after = "duplicate_no")
-    
+
+  result <- result |>
+    relocate(.data$duplicate_no, .before = 1) |>
+    mutate(type = {{ type }}, .after = "duplicate_no")
+
   result
 }
 

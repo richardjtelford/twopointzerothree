@@ -48,29 +48,31 @@ dup_find_all(x = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset"
 The result give the position and values of the first and second sets of
 duplicated values and any offset.
 
-If data in several columns need to be checked, a data.frame can be
-given.
+Alternatively, if several columns need of a data.frame to be checked, a
+data.frame containing just these columns.
 
 ``` r
 dup_find_all(
-   x = kp2014[, c("Theridion murarium Aggressiveness...4",
-                  "Theridion murarium Aggressiveness...5",
-                  "Theridion murarium Aggressiveness...6")],
-   type = "offset"
+  x = kp2014[, c(
+    "Theridion murarium Aggressiveness...4",
+    "Theridion murarium Aggressiveness...5",
+    "Theridion murarium Aggressiveness...6"
+  )],
+  type = "offset"
 )
-#> # A tibble: 32 × 9
-#>    duplicate_no type   length  pos1  vec1  pos2  vec2 delta offset
-#>           <int> <chr>   <dbl> <int> <dbl> <int> <dbl> <dbl>  <dbl>
-#>  1            1 offset      9    67 166.     78 162.  -4.35  -4.35
-#>  2            1 offset      9    68  47.7    79  43.3 -4.35  -4.35
-#>  3            1 offset      9    69 125.     80 120.  -4.35  -4.35
-#>  4            1 offset      9    70  91.0    81  86.6 -4.35  -4.35
-#>  5            1 offset      9    71 134.     82 130.  -4.35  -4.35
-#>  6            1 offset      9    72 158.     83 153.  -4.35  -4.35
-#>  7            1 offset      9    73  46.4    84  42.0 -4.35  -4.35
-#>  8            1 offset      9    74 186.     85 182.  -4.35  -4.35
-#>  9            1 offset      9    75 148.     86 143.  -4.35  -4.35
-#> 10            2 offset      9    69 125.    127 123.  -2.03  -2.03
+#> # A tibble: 32 × 11
+#>    duplicate_no type   length col1     row1  vec1 col2   row2  vec2 delta offset
+#>           <int> <chr>   <dbl> <chr>   <dbl> <dbl> <chr> <dbl> <dbl> <dbl>  <dbl>
+#>  1            1 offset      9 Therid…    67 166.  Ther…    78 162.  -4.35  -4.35
+#>  2            1 offset      9 Therid…    68  47.7 Ther…    79  43.3 -4.35  -4.35
+#>  3            1 offset      9 Therid…    69 125.  Ther…    80 120.  -4.35  -4.35
+#>  4            1 offset      9 Therid…    70  91.0 Ther…    81  86.6 -4.35  -4.35
+#>  5            1 offset      9 Therid…    71 134.  Ther…    82 130.  -4.35  -4.35
+#>  6            1 offset      9 Therid…    72 158.  Ther…    83 153.  -4.35  -4.35
+#>  7            1 offset      9 Therid…    73  46.4 Ther…    84  42.0 -4.35  -4.35
+#>  8            1 offset      9 Therid…    74 186.  Ther…    85 182.  -4.35  -4.35
+#>  9            1 offset      9 Therid…    75 148.  Ther…    86 143.  -4.35  -4.35
+#> 10            2 offset      9 Therid…    69 125.  Ther…    29 123.  -2.03  -2.03
 #> # ℹ 22 more rows
 ```
 

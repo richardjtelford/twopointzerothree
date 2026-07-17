@@ -22,7 +22,7 @@
 
 dup_dist <- function(vec, n,
                      type = c("identical", "offset", "multiply", "multiply_offset"),
-                     tolerance, 
+                     tolerance,
                      reverse = FALSE) {
   if (missing(tolerance)) {
     tolerance <- sqrt(.Machine$double.eps)

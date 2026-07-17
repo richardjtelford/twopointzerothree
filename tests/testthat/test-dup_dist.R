@@ -13,13 +13,13 @@ test_that("finds duplicate sequence", {
   s2 <- dup_dist(vec = x2, n = 4, type = "identical")
   expect_equal(sum(s2), 1)
 })
-    
+
 test_that("finds duplicate sequence with tolerance", {
-  x2 <- c(x, x[1:4] + sqrt(.Machine$double.eps)/2)
+  x2 <- c(x, x[1:4] + sqrt(.Machine$double.eps) / 2)
   expect_false(isTRUE(identical(x2[1:4], tail(x2, 4))))
   s2 <- dup_dist(vec = x2, n = 4, type = "identical")
-  expect_equal(sum(s2), 1) 
-})  
+  expect_equal(sum(s2), 1)
+})
 
 test_that("finds duplicate offset sequence", {
   x2 <- c(x, x[1:4] + 2.03) # with offset duplicate
@@ -33,7 +33,7 @@ test_that("Finds reversed sequence", {
   s3 <- dup_dist(vec = x3, n = 4, type = "offset", reverse = TRUE)
   expect_equal(sum(s3), 1)
 })
-  
+
 test_that("finds duplicate sequence with multiplier", {
   x4 <- c(x, x[1:4] * 2) # with multiple duplicate
   s4 <- dup_dist(vec = x4, n = 4, type = "multiply")
