@@ -32,7 +32,7 @@ pak::pak("richardjtelford/detectduplicate")
 ```{r example}
 library(detectduplicate)
 data("kp2014") # part of the data from Keiser & Pruitt 2014
-dup_find_all(x = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
+dup_find(x = kp2014$`Theridion murarium Aggressiveness...4`, type = "offset")
 ```
 
 The result give the position and values of the first and second sets of duplicated values and any offset.
@@ -40,7 +40,7 @@ The result give the position and values of the first and second sets of duplicat
 Alternatively, if several columns need of a data.frame to be checked, a data.frame containing just these columns.
 
 ```{r example2}
-dup_find_all(
+dup_find(
   x = kp2014[, c(
     "Theridion murarium Aggressiveness...4",
     "Theridion murarium Aggressiveness...5",

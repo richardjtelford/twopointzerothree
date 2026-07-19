@@ -1,4 +1,4 @@
-#' Find and extract duplicate sequences
+#' Find and extract duplicate sequences of specified length
 #' @param vec vector with possible duplicates
 #' @param n length of sequence sought
 #' @param tolerance Small positive number to allow for numerical imprecision
@@ -17,8 +17,8 @@
 #' set.seed(42)
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
-#' detectduplicate:::dup_find(vec = x, n = 5, type = "offset")
-dup_find <- function(vec, n, type, tolerance, reverse) {
+#' detectduplicate:::dup_find_length_n(vec = x, n = 5, type = "offset")
+dup_find_length_n <- function(vec, n, type, tolerance, reverse) {
   d <- dup_dist(vec = vec, n = n, type = type, tolerance)
   dup_extract(d = d, vec = vec, n = n)
 }

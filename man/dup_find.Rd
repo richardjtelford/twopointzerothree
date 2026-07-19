@@ -2,14 +2,18 @@
 % Please edit documentation in R/dup_find.R
 \name{dup_find}
 \alias{dup_find}
-\title{Find and extract duplicate sequences}
+\alias{dup_find.default}
+\alias{dup_find.data.frame}
+\title{Find and extract duplicate sequences of given type}
 \usage{
-dup_find(vec, n, type, tolerance, reverse)
+dup_find(x, type = "identical", min = 4, tolerance, reverse)
+
+\method{dup_find}{default}(x, type = "identical", min = 4, tolerance, reverse)
+
+\method{dup_find}{data.frame}(x, type = "identical", min = 4, tolerance, reverse)
 }
 \arguments{
-\item{vec}{vector with possible duplicates}
-
-\item{n}{length of sequence sought}
+\item{x}{vector or data.frame with possible duplicates}
 
 \item{type}{Type of duplicate sought.
 Options are "identical" for exact duplicates,
@@ -17,20 +21,30 @@ Options are "identical" for exact duplicates,
 "multiply" where one duplicate is a multiple of another,
 and "multiple_offset" where one duplicate is a multiple of another with an offset.}
 
-\item{tolerance}{Small positive number to allow for numerical imprecision}
+\item{min}{length of the shortest sequence of interest
+(high risk of false positives if this is short)}
 
-\item{reverse}{logical, test if the sequence is a reversed duplicate.}
+\item{tolerance}{Small positive number to allow for numerical imprecision.
+Defaults to \code{sqrt(.Machine$double.eps)}.}
+
+\item{reverse}{logical, test if the sequence is a reversed duplicate.
+Defaults to FALSE}
 }
 \description{
-Find and extract duplicate sequences
-}
-\details{
-Note that type = "multiply_offsets" will also find multiplied duplicates (offset = 0),
-constant offsets (multiplier = 1), and identical duplicates (multiplier = 1, offset = 0)
+Find and extract duplicate sequences of given type
 }
 \examples{
-set.seed(42)
-x <- rnorm(10)
-x <- c(x, x[1:4] + 2.03)
-detectduplicate:::dup_find(vec = x, n = 5, type = "offset")
+data(kp2014)
+dup_find(
+  x = kp2014$`Theridion murarium Aggressiveness...4`,
+  type = "offset"
+)
+dup_find(
+  x = kp2014[, c(
+    "Theridion murarium Aggressiveness...4",
+    "Theridion murarium Aggressiveness...5",
+    "Theridion murarium Aggressiveness...6"
+  )],
+  type = "offset"
+)
 }

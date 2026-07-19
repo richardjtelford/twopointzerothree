@@ -1,4 +1,4 @@
-#' Find and extract all duplicate sequences
+#' Find and extract duplicate sequences of given type
 #' @param x vector or data.frame with possible duplicates
 #' @param min length of the shortest sequence of interest
 #' (high risk of false positives if this is short)
@@ -13,11 +13,11 @@
 #' Defaults to FALSE
 #' @examples
 #' data(kp2014)
-#' dup_find_all(
+#' dup_find(
 #'   x = kp2014$`Theridion murarium Aggressiveness...4`,
 #'   type = "offset"
 #' )
-#' dup_find_all(
+#' dup_find(
 #'   x = kp2014[, c(
 #'     "Theridion murarium Aggressiveness...4",
 #'     "Theridion murarium Aggressiveness...5",
@@ -29,14 +29,14 @@
 #' @importFrom rlang .data
 #' @export
 #'
-dup_find_all <- function(x, type = "identical", min = 4, tolerance, reverse) {
-  UseMethod("dup_find_all")
+dup_find <- function(x, type = "identical", min = 4, tolerance, reverse) {
+  UseMethod("dup_find")
 }
 
-#' @rdname dup_find_all
+#' @rdname dup_find
 #' @importFrom dplyr mutate select
 #' @export
-dup_find_all.default <- function(x, type = "identical", min = 4, tolerance, reverse) {
+dup_find.default <- function(x, type = "identical", min = 4, tolerance, reverse) {
   if (!is.numeric(x)) {
     stop("`dup_find_all()` can only process numeric data.")
   }
@@ -63,10 +63,10 @@ dup_find_all.default <- function(x, type = "identical", min = 4, tolerance, reve
   results
 }
 
-#' @rdname dup_find_all
+#' @rdname dup_find
 #' @export
 
-dup_find_all.data.frame <- function(x, type = "identical", min = 4, tolerance, reverse) {
+dup_find.data.frame <- function(x, type = "identical", min = 4, tolerance, reverse) {
   # check data are valid
   if (!all(sapply(x, is.numeric))) {
     stop("`dup_find_all()` can only process numeric data.")
