@@ -27,7 +27,7 @@ dup_show <- function(data, meta_cols, test_cols, ...) {
     select({{ test_cols }}) |>
     unlist()
 
-  found_sequences <- dup_find_all(test_data, ...) |>
+  found_sequences <- dup_find(test_data, ...) |>
     mutate(id = paste(.data$length, .data$duplicate_no, sep = "."), .before = 1) |>
     select(.data$id, .data$pos1, .data$pos2) |>
     pivot_longer(-.data$id, names_to = "name", values_to = "pos") |>

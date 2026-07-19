@@ -37,7 +37,7 @@ dup_permute <- function(vec, min = 5, max = 10, nsamp = 100,
     set_names() |>
     rep(each = nsamp) |>
     map(\(n) {
-      dup_find(vec = sample(vec), n = n, type = type)
+      dup_find_length_n(vec = sample(vec), n = n, type = type)
     }) |>
     map(\(s) {
       n_seq <- if (nrow(s)) {
