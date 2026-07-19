@@ -4,7 +4,7 @@
 \alias{dup_find_length_n}
 \title{Find and extract duplicate sequences of specified length}
 \usage{
-dup_find_length_n(vec, n, type, tolerance, reverse)
+dup_find_length_n(vec, n, type, tolerance, reverse = FALSE)
 }
 \arguments{
 \item{vec}{vector with possible duplicates}

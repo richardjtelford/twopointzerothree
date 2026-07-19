@@ -36,18 +36,21 @@ dup_find <- function(x, type = "identical", min = 4, tolerance, reverse) {
 #' @rdname dup_find
 #' @importFrom dplyr mutate select
 #' @export
-dup_find.default <- function(x, type = "identical", min = 4, tolerance, reverse) {
+dup_find.default <- function(x, type = "identical", min = 4, tolerance, reverse = FALSE) {
   if (!is.numeric(x)) {
     stop("`dup_find_all()` can only process numeric data.")
   }
 
   # max possible duplicate
   max <- floor(length(x) / 2)
+  if (min > max) {
+    stop("`min` must not be larger than half the length of x")
+  }
 
   # iterate to find different length duplicates.
   results <- list()
   for (n in min:max) {
-    found <- dup_find(vec = x, n = n, type = type, tolerance = tolerance)
+    found <- dup_find_length_n(vec = x, n = n, type = type, tolerance = tolerance, reverse = reverse)
 
     results[[n - min + 1]] <- found # allocate to list
     if (nrow(found) == 0) {
@@ -66,7 +69,7 @@ dup_find.default <- function(x, type = "identical", min = 4, tolerance, reverse)
 #' @rdname dup_find
 #' @export
 
-dup_find.data.frame <- function(x, type = "identical", min = 4, tolerance, reverse) {
+dup_find.data.frame <- function(x, type = "identical", min = 4, tolerance, reverse = FALSE) {
   # check data are valid
   if (!all(sapply(x, is.numeric))) {
     stop("`dup_find_all()` can only process numeric data.")
@@ -75,7 +78,7 @@ dup_find.data.frame <- function(x, type = "identical", min = 4, tolerance, rever
   vec <- unlist(x) |> as.vector()
 
   # run dup_find_all
-  dups <- dup_find_all(vec, type = type, min = min, tolerance = tolerance, reverse = reverse)
+  dups <- dup_find(vec, type = type, min = min, tolerance = tolerance, reverse = reverse)
 
   # update output to show rows columns
   nr <- nrow(x)

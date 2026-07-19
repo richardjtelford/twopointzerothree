@@ -18,7 +18,7 @@
 #' x <- rnorm(10)
 #' x <- c(x, x[1:4] + 2.03)
 #' detectduplicate:::dup_find_length_n(vec = x, n = 5, type = "offset")
-dup_find_length_n <- function(vec, n, type, tolerance, reverse) {
-  d <- dup_dist(vec = vec, n = n, type = type, tolerance)
+dup_find_length_n <- function(vec, n, type, tolerance, reverse = FALSE) {
+  d <- dup_dist(vec = vec, n = n, type = type, tolerance = tolerance, reverse = reverse)
   dup_extract(d = d, vec = vec, n = n)
 }

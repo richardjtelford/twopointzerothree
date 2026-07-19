@@ -19,6 +19,8 @@
 dup_extract <- function(d, vec, n) {
   # get type
   type <- attr(d, "type")
+  # get reverse
+  reverse <- attr(d, "reverse")
 
   # get indices where d is true (ie within tolerance of zero)
   dups <- finv(which(d), d)
@@ -44,10 +46,11 @@ dup_extract <- function(d, vec, n) {
         length = n,
         pos1 = pos["j"]:(pos["j"] + n - 1),
         vec1 = vec[.data$pos1],
-        pos2 = pos["i"]:(pos["i"] + n - 1),
+        pos2 = if(reverse) {rev(pos["i"]:(pos["i"] + n - 1))} else {pos["i"]:(pos["i"] + n - 1)},
         vec2 = vec[.data$pos2],
         delta = .data$vec2 - .data$vec1
       )
+
       out <- switch(type,
         identical = out,
         offset = out |> mutate(offset = .data$vec2 - .data$vec1),

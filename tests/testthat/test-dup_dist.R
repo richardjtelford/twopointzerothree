@@ -32,6 +32,9 @@ test_that("Finds reversed sequence", {
   x3 <- c(x, x[4:1] + 2.03) # with offset duplicate
   s3 <- dup_dist(vec = x3, n = 4, type = "offset", reverse = TRUE)
   expect_equal(sum(s3), 1)
+  s3 <- dup_dist(vec = x3, n = 4, type = "offset", reverse = FALSE)
+  expect_false(sum(s3) == 1)
+  
 })
 
 test_that("finds duplicate sequence with multiplier", {

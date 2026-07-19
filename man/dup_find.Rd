@@ -8,9 +8,9 @@
 \usage{
 dup_find(x, type = "identical", min = 4, tolerance, reverse)
 
-\method{dup_find}{default}(x, type = "identical", min = 4, tolerance, reverse)
+\method{dup_find}{default}(x, type = "identical", min = 4, tolerance, reverse = FALSE)
 
-\method{dup_find}{data.frame}(x, type = "identical", min = 4, tolerance, reverse)
+\method{dup_find}{data.frame}(x, type = "identical", min = 4, tolerance, reverse = FALSE)
 }
 \arguments{
 \item{x}{vector or data.frame with possible duplicates}
