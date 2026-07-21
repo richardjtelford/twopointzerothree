@@ -40,13 +40,23 @@ dup_extract <- function(d, vec, n) {
       vec2 = numeric(),
       delta = numeric()
     )
+    result <- switch(type,
+      identical = result,
+      offset = result |> mutate(offset = numeric()),
+      multiply = result |> mutate(multiply = numeric()),
+      multiply_offset = result |> mutate(offset = numeric(), multiply = numeric())
+    )
   } else {
     result <- apply(dups, 1, function(pos) {
       out <- tibble(
         length = n,
         pos1 = pos["j"]:(pos["j"] + n - 1),
         vec1 = vec[.data$pos1],
-        pos2 = if(reverse) {rev(pos["i"]:(pos["i"] + n - 1))} else {pos["i"]:(pos["i"] + n - 1)},
+        pos2 = if (reverse) {
+          rev(pos["i"]:(pos["i"] + n - 1))
+        } else {
+          pos["i"]:(pos["i"] + n - 1)
+        },
         vec2 = vec[.data$pos2],
         delta = .data$vec2 - .data$vec1
       )
@@ -54,7 +64,7 @@ dup_extract <- function(d, vec, n) {
       out <- switch(type,
         identical = out,
         offset = out |> mutate(offset = .data$vec2 - .data$vec1),
-        multiply = out |> mutate(multiple = .data$vec2 / .data$vec1),
+        multiply = out |> mutate(multiply = .data$vec2 / .data$vec1),
         multiply_offset = {
           mod <- lm(vec2 ~ vec1, data = out)
           out |> mutate(offset = coef(mod)[1], multiply = coef(mod)[2])
@@ -66,7 +76,7 @@ dup_extract <- function(d, vec, n) {
   }
 
   result <- result |>
-    relocate(.data$duplicate_no, .before = 1) |>
+    relocate("duplicate_no", .before = 1) |>
     mutate(type = {{ type }}, .after = "duplicate_no")
 
   result

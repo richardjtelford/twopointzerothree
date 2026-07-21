@@ -71,6 +71,6 @@ dup_dist <- function(vec, n,
   attr(d, "Labels") <- rownames(em)
   attr(d, "type") <- type
   attr(d, "reverse") <- reverse
-  
+
   d
 }

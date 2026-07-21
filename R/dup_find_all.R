@@ -48,11 +48,13 @@ dup_find_all <- function(x, min = 4, tolerance) {
       dups <- switch(type,
         identical = dups,
         offset = dups |> filter(all(abs(.data$offset) >= tolerance), .by = "duplicate_no"),
-        multiply = dups |> filter(all(abs(.data$multiply) >= tolerance), .by = "duplicate_no"),
-        multiply_offset = dups |> filter(all(abs(.data$offset) >= tolerance),
-          all(abs(.data$multiply - 1) >= tolerance),
-          .by = "duplicate_no"
-        ),
+        multiply = dups |> filter(all(abs(.data$multiply - 1) >= tolerance), .by = "duplicate_no"),
+        multiply_offset = dups |>
+          filter(
+            all(abs(.data$offset) >= tolerance),
+            all(abs(.data$multiply - 1) >= tolerance),
+            .by = "duplicate_no"
+          ),
       )
       dups |> mutate(type = type, reverse = reverse, .before = 1)
     }

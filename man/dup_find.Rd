@@ -19,7 +19,7 @@ dup_find(x, type = "identical", min = 4, tolerance, reverse)
 Options are "identical" for exact duplicates,
 "offset" for duplicates with an fixed offset,
 "multiply" where one duplicate is a multiple of another,
-and "multiple_offset" where one duplicate is a multiple of another with an offset.}
+and "multiply_offset" where one duplicate is a multiple of another with an offset.}
 
 \item{min}{length of the shortest sequence of interest
 (high risk of false positives if this is short)}
