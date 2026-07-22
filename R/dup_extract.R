@@ -12,7 +12,7 @@
 #' @importFrom rlang .data
 #' @importFrom tibble tibble
 #' @importFrom purrr list_rbind
-#' @importFrom dplyr mutate relocate
+#' @importFrom dplyr mutate relocate n_distinct
 #' @importFrom stats lm coef
 
 
@@ -76,8 +76,11 @@ dup_extract <- function(d, vec, n) {
   }
 
   result <- result |>
+    # move duplicate number to first position
     relocate("duplicate_no", .before = 1) |>
-    mutate(type = {{ type }}, .after = "duplicate_no")
+    mutate(type = {{ type }}, .after = "duplicate_no") |>
+    # find number of distinct values per duplicate (if low doubtful)
+    mutate(n_distinct = n_distinct(.data$vec1), .by = "duplicate_no")
 
   result
 }
