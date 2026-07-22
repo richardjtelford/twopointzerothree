@@ -23,7 +23,7 @@
 #'
 #' @importFrom rlang .data
 #' @importFrom purrr pmap list_rbind
-#' @importFrom dplyr mutate filter
+#' @importFrom dplyr mutate filter cur_group_id
 #' @importFrom tidyr crossing
 
 #' @export
@@ -41,7 +41,7 @@ dup_find_all <- function(x, min = 4, tolerance) {
     reverse = c(FALSE, TRUE)
   )
 
-  pmap(config, \(type, reverse) {
+  out <- pmap(config, \(type, reverse) {
     dups <- dup_find(x, min = min, tolerance = tolerance, type = type, reverse = reverse)
     # remove sequences where all(offset == 0) or all(multiplier = 0) (as these should already be caught)
     if (nrow(dups) > 0) {
@@ -60,4 +60,8 @@ dup_find_all <- function(x, min = 4, tolerance) {
     }
   }) |>
     list_rbind()
+
+  # renumber duplicates
+  out |>
+    mutate(duplicate_no = cur_group_id(), .by = c("reverse", "type", "duplicate_no", "length"))
 }
